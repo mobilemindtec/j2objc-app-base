@@ -1,0 +1,25 @@
+apply plugin: 'java-library'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+  testImplementation 'junit:junit:4.12'
+  compile fileTree(dir: '../j2objc-json/build/libs', include: '*.jar')
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/java'
+    //main.java.srcDirs += '../sqlighter/android/';
+}
+
+task j2objc(type: Exec) {
+  executable "sh"
+  args "-c", "./j2objc-compile.sh"
+}
+
+tasks.assemble.finalizedBy(j2objc)
+tasks.build.finalizedBy(j2objc)
+
+//gradle init --type java-library
