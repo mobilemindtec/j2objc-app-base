@@ -9,6 +9,25 @@ public class RestResult<T> {
     private T result;
     private List<T> results;
 
+    public RestResult(){}
+
+    public RestResult(boolean error, String message){
+        this.error = error;
+        this.message = message;
+    }
+
+    public RestResult(String message){
+        this.message = message;
+    }
+
+    public RestResult(T result){
+        this.result = result;
+    }
+
+    public RestResult(List<T> results){
+        this.results = results;
+    }
+
     public boolean isError() {
         return error;
     }

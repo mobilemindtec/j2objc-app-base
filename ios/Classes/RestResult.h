@@ -24,6 +24,15 @@
 
 - (instancetype)init;
 
+- (instancetype)initWithBoolean:(jboolean)error
+                   withNSString:(NSString *)message;
+
+- (instancetype)initWithJavaUtilList:(id<JavaUtilList>)results;
+
+- (instancetype)initWithNSString:(NSString *)message;
+
+- (instancetype)initWithId:(id)result;
+
 - (NSString *)getMessage;
 
 - (id)getResult;
@@ -49,6 +58,30 @@ FOUNDATION_EXPORT void AppBaseRestResult_init(AppBaseRestResult *self);
 FOUNDATION_EXPORT AppBaseRestResult *new_AppBaseRestResult_init(void) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT AppBaseRestResult *create_AppBaseRestResult_init(void);
+
+FOUNDATION_EXPORT void AppBaseRestResult_initWithBoolean_withNSString_(AppBaseRestResult *self, jboolean error, NSString *message);
+
+FOUNDATION_EXPORT AppBaseRestResult *new_AppBaseRestResult_initWithBoolean_withNSString_(jboolean error, NSString *message) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT AppBaseRestResult *create_AppBaseRestResult_initWithBoolean_withNSString_(jboolean error, NSString *message);
+
+FOUNDATION_EXPORT void AppBaseRestResult_initWithNSString_(AppBaseRestResult *self, NSString *message);
+
+FOUNDATION_EXPORT AppBaseRestResult *new_AppBaseRestResult_initWithNSString_(NSString *message) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT AppBaseRestResult *create_AppBaseRestResult_initWithNSString_(NSString *message);
+
+FOUNDATION_EXPORT void AppBaseRestResult_initWithId_(AppBaseRestResult *self, id result);
+
+FOUNDATION_EXPORT AppBaseRestResult *new_AppBaseRestResult_initWithId_(id result) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT AppBaseRestResult *create_AppBaseRestResult_initWithId_(id result);
+
+FOUNDATION_EXPORT void AppBaseRestResult_initWithJavaUtilList_(AppBaseRestResult *self, id<JavaUtilList> results);
+
+FOUNDATION_EXPORT AppBaseRestResult *new_AppBaseRestResult_initWithJavaUtilList_(id<JavaUtilList> results) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT AppBaseRestResult *create_AppBaseRestResult_initWithJavaUtilList_(id<JavaUtilList> results);
 
 J2OBJC_TYPE_LITERAL_HEADER(AppBaseRestResult)
 
