@@ -13,6 +13,9 @@
   NSString *message_;
   id result_;
   id<JavaUtilList> results_;
+  jlong currentUnixTime_;
+  jint totalCount_;
+  id<JavaUtilList> errors_;
 }
 
 @end
@@ -20,6 +23,7 @@
 J2OBJC_FIELD_SETTER(AppBaseRestResult, message_, NSString *)
 J2OBJC_FIELD_SETTER(AppBaseRestResult, result_, id)
 J2OBJC_FIELD_SETTER(AppBaseRestResult, results_, id<JavaUtilList>)
+J2OBJC_FIELD_SETTER(AppBaseRestResult, errors_, id<JavaUtilList>)
 
 @implementation AppBaseRestResult
 
@@ -55,6 +59,10 @@ J2OBJC_IGNORE_DESIGNATED_END
   return error_;
 }
 
+- (jboolean)isSuccess {
+  return !error_;
+}
+
 - (void)setErrorWithBoolean:(jboolean)error {
   self->error_ = error;
 }
@@ -83,6 +91,30 @@ J2OBJC_IGNORE_DESIGNATED_END
   self->results_ = results;
 }
 
+- (jlong)getCurrentUnixTime {
+  return currentUnixTime_;
+}
+
+- (void)setCurrentUnixTimeWithLong:(jlong)currentUnixTime {
+  self->currentUnixTime_ = currentUnixTime;
+}
+
+- (jint)getTotalCount {
+  return totalCount_;
+}
+
+- (void)setTotalCountWithInt:(jint)totalCount {
+  self->totalCount_ = totalCount;
+}
+
+- (id<JavaUtilList>)getErrors {
+  return errors_;
+}
+
+- (void)setErrorsWithJavaUtilList:(id<JavaUtilList>)errors {
+  self->errors_ = errors;
+}
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
@@ -91,6 +123,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, NULL, 0x1, -1, 2, -1, 3, -1, -1 },
     { NULL, NULL, 0x1, -1, 4, -1, 5, -1, -1 },
     { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "Z", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 6, 7, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 8, 1, -1, -1, -1, -1 },
@@ -98,6 +131,12 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "V", 0x1, 10, 2, -1, 3, -1, -1 },
     { NULL, "LJavaUtilList;", 0x1, -1, -1, -1, 11, -1, -1 },
     { NULL, "V", 0x1, 12, 4, -1, 5, -1, -1 },
+    { NULL, "J", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 13, 14, -1, -1, -1, -1 },
+    { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
+    { NULL, "V", 0x1, 15, 16, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilList;", 0x1, -1, -1, -1, 17, -1, -1 },
+    { NULL, "V", 0x1, 18, 4, -1, 19, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -107,22 +146,32 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[3].selector = @selector(initWithId:);
   methods[4].selector = @selector(initWithJavaUtilList:);
   methods[5].selector = @selector(isError);
-  methods[6].selector = @selector(setErrorWithBoolean:);
-  methods[7].selector = @selector(getMessage);
-  methods[8].selector = @selector(setMessageWithNSString:);
-  methods[9].selector = @selector(getResult);
-  methods[10].selector = @selector(setResultWithId:);
-  methods[11].selector = @selector(getResults);
-  methods[12].selector = @selector(setResultsWithJavaUtilList:);
+  methods[6].selector = @selector(isSuccess);
+  methods[7].selector = @selector(setErrorWithBoolean:);
+  methods[8].selector = @selector(getMessage);
+  methods[9].selector = @selector(setMessageWithNSString:);
+  methods[10].selector = @selector(getResult);
+  methods[11].selector = @selector(setResultWithId:);
+  methods[12].selector = @selector(getResults);
+  methods[13].selector = @selector(setResultsWithJavaUtilList:);
+  methods[14].selector = @selector(getCurrentUnixTime);
+  methods[15].selector = @selector(setCurrentUnixTimeWithLong:);
+  methods[16].selector = @selector(getTotalCount);
+  methods[17].selector = @selector(setTotalCountWithInt:);
+  methods[18].selector = @selector(getErrors);
+  methods[19].selector = @selector(setErrorsWithJavaUtilList:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "error_", "Z", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "message_", "LNSString;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
-    { "result_", "LNSObject;", .constantValue.asLong = 0, 0x2, -1, -1, 13, -1 },
-    { "results_", "LJavaUtilList;", .constantValue.asLong = 0, 0x2, -1, -1, 14, -1 },
+    { "result_", "LNSObject;", .constantValue.asLong = 0, 0x2, -1, -1, 20, -1 },
+    { "results_", "LJavaUtilList;", .constantValue.asLong = 0, 0x2, -1, -1, 21, -1 },
+    { "currentUnixTime_", "J", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
+    { "totalCount_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
+    { "errors_", "LJavaUtilList;", .constantValue.asLong = 0, 0x2, -1, -1, 22, -1 },
   };
-  static const void *ptrTable[] = { "ZLNSString;", "LNSString;", "LNSObject;", "(TT;)V", "LJavaUtilList;", "(Ljava/util/List<TT;>;)V", "setError", "Z", "setMessage", "()TT;", "setResult", "()Ljava/util/List<TT;>;", "setResults", "TT;", "Ljava/util/List<TT;>;", "<T:Ljava/lang/Object;>Ljava/lang/Object;" };
-  static const J2ObjcClassInfo _AppBaseRestResult = { "RestResult", "br.com.mobilemind.j2objc.rest", ptrTable, methods, fields, 7, 0x1, 13, 4, -1, -1, -1, 15, -1 };
+  static const void *ptrTable[] = { "ZLNSString;", "LNSString;", "LNSObject;", "(TT;)V", "LJavaUtilList;", "(Ljava/util/List<TT;>;)V", "setError", "Z", "setMessage", "()TT;", "setResult", "()Ljava/util/List<TT;>;", "setResults", "setCurrentUnixTime", "J", "setTotalCount", "I", "()Ljava/util/List<Ljava/lang/String;>;", "setErrors", "(Ljava/util/List<Ljava/lang/String;>;)V", "TT;", "Ljava/util/List<TT;>;", "Ljava/util/List<Ljava/lang/String;>;", "<T:Ljava/lang/Object;>Ljava/lang/Object;" };
+  static const J2ObjcClassInfo _AppBaseRestResult = { "RestResult", "br.com.mobilemind.j2objc.rest", ptrTable, methods, fields, 7, 0x1, 20, 7, -1, -1, -1, 23, -1 };
   return &_AppBaseRestResult;
 }
 

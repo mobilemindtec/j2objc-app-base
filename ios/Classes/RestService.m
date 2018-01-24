@@ -249,6 +249,7 @@ AppBaseRestService *create_AppBaseRestService_initWithNSString_withInt_(NSString
 JavaNetHttpURLConnection *AppBaseRestService_getHttpConnectionWithNSString_(AppBaseRestService *self, NSString *path) {
   JavaNetHttpURLConnection *conn = nil;
   JavaNetURL *url = new_JavaNetURL_initWithNSString_(path);
+  [((JavaUtilLoggingLogger *) nil_chk(AppBaseRestService_logger)) infoWithNSString:JreStrcat("$$", @"HTTP CONNECT: ", path)];
   conn = (JavaNetHttpURLConnection *) cast_chk([url openConnection], [JavaNetHttpURLConnection class]);
   for (NSString * __strong name in nil_chk([((id<JavaUtilMap>) nil_chk(self->headers_)) keySet])) {
     [((JavaNetHttpURLConnection *) nil_chk(conn)) setRequestPropertyWithNSString:name withNSString:[((id<JavaUtilMap>) nil_chk(self->headers_)) getWithId:name]];

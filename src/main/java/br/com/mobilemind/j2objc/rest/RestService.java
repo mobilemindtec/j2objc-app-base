@@ -46,6 +46,8 @@ public class RestService{
         HttpURLConnection conn = null;
         URL url = new URL(path);
 
+        logger.info("HTTP CONNECT: " + path);
+
         conn = (HttpURLConnection) url.openConnection();
 
         for(String name : this.headers.keySet()){

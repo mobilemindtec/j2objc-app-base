@@ -22,11 +22,23 @@
 
 - (instancetype)init;
 
-+ (jboolean)isEmptyWithNSString:(NSString *)text;
++ (jdouble)decimalFormatWithDouble:(jdouble)value;
+
++ (NSString *)filterNumberWithNSString:(NSString *)str;
+
++ (jdouble)formatMoneyWithDouble:(jdouble)value;
+
++ (NSString *)formatMoneyStrWithDouble:(jdouble)value;
+
++ (jboolean)isNullOrEmptyWithNSString:(NSString *)text;
+
++ (jdouble)parseMoneyWithNSString:(NSString *)value;
+
++ (NSString *)trimWithNSString:(NSString *)text;
 
 @end
 
-J2OBJC_EMPTY_STATIC_INIT(AppBaseAppUtil)
+J2OBJC_STATIC_INIT(AppBaseAppUtil)
 
 FOUNDATION_EXPORT void AppBaseAppUtil_init(AppBaseAppUtil *self);
 
@@ -34,7 +46,19 @@ FOUNDATION_EXPORT AppBaseAppUtil *new_AppBaseAppUtil_init(void) NS_RETURNS_RETAI
 
 FOUNDATION_EXPORT AppBaseAppUtil *create_AppBaseAppUtil_init(void);
 
-FOUNDATION_EXPORT jboolean AppBaseAppUtil_isEmptyWithNSString_(NSString *text);
+FOUNDATION_EXPORT jboolean AppBaseAppUtil_isNullOrEmptyWithNSString_(NSString *text);
+
+FOUNDATION_EXPORT NSString *AppBaseAppUtil_trimWithNSString_(NSString *text);
+
+FOUNDATION_EXPORT NSString *AppBaseAppUtil_filterNumberWithNSString_(NSString *str);
+
+FOUNDATION_EXPORT jdouble AppBaseAppUtil_decimalFormatWithDouble_(jdouble value);
+
+FOUNDATION_EXPORT jdouble AppBaseAppUtil_formatMoneyWithDouble_(jdouble value);
+
+FOUNDATION_EXPORT NSString *AppBaseAppUtil_formatMoneyStrWithDouble_(jdouble value);
+
+FOUNDATION_EXPORT jdouble AppBaseAppUtil_parseMoneyWithNSString_(NSString *value);
 
 J2OBJC_TYPE_LITERAL_HEADER(AppBaseAppUtil)
 

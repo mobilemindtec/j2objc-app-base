@@ -8,6 +8,9 @@ public class RestResult<T> {
     private String message;
     private T result;
     private List<T> results;
+    private long currentUnixTime;
+    private int totalCount;
+    private List<String> errors;
 
     public RestResult(){}
 
@@ -30,6 +33,10 @@ public class RestResult<T> {
 
     public boolean isError() {
         return error;
+    }
+
+    public boolean isSuccess() {
+        return !error;
     }
 
     public void setError(boolean error) {
@@ -58,5 +65,29 @@ public class RestResult<T> {
 
     public void setResults(List<T> results) {
         this.results = results;
+    }
+
+    public long getCurrentUnixTime() {
+        return currentUnixTime;
+    }
+
+    public void setCurrentUnixTime(long currentUnixTime) {
+        this.currentUnixTime = currentUnixTime;
+    }
+
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+
+    public List<String> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<String> errors) {
+        this.errors = errors;
     }
 }

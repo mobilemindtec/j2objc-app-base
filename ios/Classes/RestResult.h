@@ -33,21 +33,35 @@
 
 - (instancetype)initWithId:(id)result;
 
+- (jlong)getCurrentUnixTime;
+
+- (id<JavaUtilList>)getErrors;
+
 - (NSString *)getMessage;
 
 - (id)getResult;
 
 - (id<JavaUtilList>)getResults;
 
+- (jint)getTotalCount;
+
 - (jboolean)isError;
 
+- (jboolean)isSuccess;
+
+- (void)setCurrentUnixTimeWithLong:(jlong)currentUnixTime;
+
 - (void)setErrorWithBoolean:(jboolean)error;
+
+- (void)setErrorsWithJavaUtilList:(id<JavaUtilList>)errors;
 
 - (void)setMessageWithNSString:(NSString *)message;
 
 - (void)setResultWithId:(id)result;
 
 - (void)setResultsWithJavaUtilList:(id<JavaUtilList>)results;
+
+- (void)setTotalCountWithInt:(jint)totalCount;
 
 @end
 
