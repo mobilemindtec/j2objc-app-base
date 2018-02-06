@@ -16,11 +16,16 @@
 #if !defined (AppBaseAppUtil_) && (INCLUDE_ALL_AppUtil || defined(INCLUDE_AppBaseAppUtil))
 #define AppBaseAppUtil_
 
+@class IOSCharArray;
+
 @interface AppBaseAppUtil : NSObject
 
 #pragma mark Public
 
 - (instancetype)init;
+
++ (NSString *)capitalizeStringWithNSString:(NSString *)string
+                             withCharArray:(IOSCharArray *)charList;
 
 + (jdouble)decimalFormatWithDouble:(jdouble)value;
 
@@ -59,6 +64,8 @@ FOUNDATION_EXPORT jdouble AppBaseAppUtil_formatMoneyWithDouble_(jdouble value);
 FOUNDATION_EXPORT NSString *AppBaseAppUtil_formatMoneyStrWithDouble_(jdouble value);
 
 FOUNDATION_EXPORT jdouble AppBaseAppUtil_parseMoneyWithNSString_(NSString *value);
+
+FOUNDATION_EXPORT NSString *AppBaseAppUtil_capitalizeStringWithNSString_withCharArray_(NSString *string, IOSCharArray *charList);
 
 J2OBJC_TYPE_LITERAL_HEADER(AppBaseAppUtil)
 

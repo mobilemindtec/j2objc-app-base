@@ -3,7 +3,7 @@ package br.com.mobilemind.j2objc.util;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.Locale;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -77,5 +77,31 @@ public class AppUtil {
         } catch (ParseException ex) {
             return 0;
         }
+    }
+
+    public static String capitalizeString(String string, char... charList) {
+
+        if(string == null)
+            return null;
+
+        List items = new LinkedList();
+        items.add('.');
+        items.add('\'');
+
+        if(charList != null){
+            items.addAll(Arrays.asList(charList));
+        }
+
+        char[] chars = string.toLowerCase().toCharArray();
+        boolean found = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (!found && Character.isLetter(chars[i])) {
+                chars[i] = Character.toUpperCase(chars[i]);
+                found = true;
+            } else if (Character.isWhitespace(chars[i]) || items.contains(chars[i])) { // You can add other chars here
+                found = false;
+            }
+        }
+        return String.valueOf(chars);
     }
 }

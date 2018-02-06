@@ -4,10 +4,17 @@
 //
 
 #include "AppUtil.h"
+#include "IOSClass.h"
+#include "IOSObjectArray.h"
+#include "IOSPrimitiveArray.h"
 #include "J2ObjC_source.h"
+#include "java/lang/Character.h"
 #include "java/lang/Double.h"
 #include "java/text/NumberFormat.h"
 #include "java/text/ParseException.h"
+#include "java/util/Arrays.h"
+#include "java/util/LinkedList.h"
+#include "java/util/List.h"
 #include "java/util/Locale.h"
 #include "java/util/regex/Matcher.h"
 #include "java/util/regex/Pattern.h"
@@ -56,6 +63,11 @@ J2OBJC_IGNORE_DESIGNATED_END
   return AppBaseAppUtil_parseMoneyWithNSString_(value);
 }
 
++ (NSString *)capitalizeStringWithNSString:(NSString *)string
+                             withCharArray:(IOSCharArray *)charList {
+  return AppBaseAppUtil_capitalizeStringWithNSString_withCharArray_(string, charList);
+}
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
@@ -66,6 +78,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "D", 0x9, 6, 5, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x9, 7, 5, -1, -1, -1, -1 },
     { NULL, "D", 0x9, 8, 1, -1, -1, -1, -1 },
+    { NULL, "LNSString;", 0x89, 9, 10, -1, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -77,12 +90,13 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[5].selector = @selector(formatMoneyWithDouble:);
   methods[6].selector = @selector(formatMoneyStrWithDouble:);
   methods[7].selector = @selector(parseMoneyWithNSString:);
+  methods[8].selector = @selector(capitalizeStringWithNSString:withCharArray:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "formar", "LJavaTextNumberFormat;", .constantValue.asLong = 0, 0xa, -1, 9, -1, -1 },
+    { "formar", "LJavaTextNumberFormat;", .constantValue.asLong = 0, 0xa, -1, 11, -1, -1 },
   };
-  static const void *ptrTable[] = { "isNullOrEmpty", "LNSString;", "trim", "filterNumber", "decimalFormat", "D", "formatMoney", "formatMoneyStr", "parseMoney", &AppBaseAppUtil_formar };
-  static const J2ObjcClassInfo _AppBaseAppUtil = { "AppUtil", "br.com.mobilemind.j2objc.util", ptrTable, methods, fields, 7, 0x1, 8, 1, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "isNullOrEmpty", "LNSString;", "trim", "filterNumber", "decimalFormat", "D", "formatMoney", "formatMoneyStr", "parseMoney", "capitalizeString", "LNSString;[C", &AppBaseAppUtil_formar };
+  static const J2ObjcClassInfo _AppBaseAppUtil = { "AppUtil", "br.com.mobilemind.j2objc.util", ptrTable, methods, fields, 7, 0x1, 9, 1, -1, -1, -1, -1, -1 };
   return &_AppBaseAppUtil;
 }
 
@@ -174,6 +188,29 @@ jdouble AppBaseAppUtil_parseMoneyWithNSString_(NSString *value) {
   @catch (JavaTextParseException *ex) {
     return 0;
   }
+}
+
+NSString *AppBaseAppUtil_capitalizeStringWithNSString_withCharArray_(NSString *string, IOSCharArray *charList) {
+  AppBaseAppUtil_initialize();
+  if (string == nil) return nil;
+  id<JavaUtilList> items = new_JavaUtilLinkedList_init();
+  [items addWithId:JavaLangCharacter_valueOfWithChar_('.')];
+  [items addWithId:JavaLangCharacter_valueOfWithChar_('\'')];
+  if (charList != nil) {
+    [items addAllWithJavaUtilCollection:JavaUtilArrays_asListWithNSObjectArray_([IOSObjectArray newArrayWithObjects:(id[]){ charList } count:1 type:IOSClass_charArray(1)])];
+  }
+  IOSCharArray *chars = [((NSString *) nil_chk([string lowercaseString])) java_toCharArray];
+  jboolean found = false;
+  for (jint i = 0; i < ((IOSCharArray *) nil_chk(chars))->size_; i++) {
+    if (!found && JavaLangCharacter_isLetterWithChar_(IOSCharArray_Get(chars, i))) {
+      *IOSCharArray_GetRef(chars, i) = JavaLangCharacter_toUpperCaseWithChar_(IOSCharArray_Get(chars, i));
+      found = true;
+    }
+    else if (JavaLangCharacter_isWhitespaceWithChar_(IOSCharArray_Get(chars, i)) || [items containsWithId:JavaLangCharacter_valueOfWithChar_(IOSCharArray_Get(chars, i))]) {
+      found = false;
+    }
+  }
+  return NSString_java_valueOfChars_(chars);
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AppBaseAppUtil)
