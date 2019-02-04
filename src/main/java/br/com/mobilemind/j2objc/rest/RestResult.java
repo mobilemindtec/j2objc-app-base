@@ -19,6 +19,11 @@ public class RestResult<T> {
         this.message = message;
     }
 
+    public RestResult(Throwable ex){
+        this.error = true;
+        this.message = ex.getMessage();
+    }
+
     public RestResult(String message){
         this.message = message;
     }

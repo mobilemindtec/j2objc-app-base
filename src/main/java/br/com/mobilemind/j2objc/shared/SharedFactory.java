@@ -4,7 +4,6 @@ package br.com.mobilemind.j2objc.shared;
 import br.com.mobilemind.j2objc.shared.ios.PreferencesImpl;
 import com.google.j2objc.annotations.ObjectiveCName;
 
-import java.security.KeyPair;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;

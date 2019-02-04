@@ -22,9 +22,12 @@
     { NULL, "Z", 0x401, 8, 9, -1, -1, -1, -1 },
     { NULL, "Z", 0x401, 10, 1, -1, -1, -1, -1 },
     { NULL, "V", 0x401, 11, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x401, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilList;", 0x401, -1, -1, -1, 12, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(hasKeyWithNSString:);
   methods[1].selector = @selector(setStringWithNSString:withNSString:);
   methods[2].selector = @selector(getStringWithNSString:);
@@ -33,12 +36,16 @@
   methods[5].selector = @selector(setBoolWithNSString:withBoolean:);
   methods[6].selector = @selector(getBoolWithNSString:);
   methods[7].selector = @selector(removeWithNSString:);
+  methods[8].selector = @selector(clear);
+  methods[9].selector = @selector(allKeys);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "hasKey", "LNSString;", "setString", "LNSString;LNSString;", "getString", "setInt", "LNSString;I", "getInt", "setBool", "LNSString;Z", "getBool", "remove" };
-  static const J2ObjcClassInfo _AppBasePreferences = { "Preferences", "br.com.mobilemind.j2objc.shared", ptrTable, methods, NULL, 7, 0x609, 8, 0, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "hasKey", "LNSString;", "setString", "LNSString;LNSString;", "getString", "setInt", "LNSString;I", "getInt", "setBool", "LNSString;Z", "getBool", "remove", "()Ljava/util/List<Ljava/lang/String;>;" };
+  static const J2ObjcClassInfo _AppBasePreferences = { "Preferences", "br.com.mobilemind.j2objc.shared", ptrTable, methods, NULL, 7, 0x609, 10, 0, -1, -1, -1, -1, -1 };
   return &_AppBasePreferences;
 }
 
 @end
 
 J2OBJC_INTERFACE_TYPE_LITERAL_SOURCE(AppBasePreferences)
+
+J2OBJC_NAME_MAPPING(AppBasePreferences, "br.com.mobilemind.j2objc.shared", "AppBase")

@@ -3,24 +3,22 @@
 //  source: ./build/j2objc/java/RestDataConverter.java
 //
 
-#include "J2ObjC_header.h"
+#ifndef RestDataConverter_H
+#define RestDataConverter_H
 
-#pragma push_macro("INCLUDE_ALL_RestDataConverter")
-#ifdef RESTRICT_RestDataConverter
-#define INCLUDE_ALL_RestDataConverter 0
-#else
-#define INCLUDE_ALL_RestDataConverter 1
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
-#undef RESTRICT_RestDataConverter
 
-#if !defined (AppBaseRestDataConverter_) && (INCLUDE_ALL_RestDataConverter || defined(INCLUDE_AppBaseRestDataConverter))
-#define AppBaseRestDataConverter_
+#include "J2ObjC_header.h"
 
 @interface AppBaseRestDataConverter : NSObject
 
 #pragma mark Public
 
-- (instancetype)init;
+- (instancetype __nonnull)init;
 
 - (id)fromJsonWithNSString:(NSString *)content;
 
@@ -40,6 +38,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBaseRestDataConverter)
 
 @compatibility_alias BrComMobilemindJ2objcRestRestDataConverter AppBaseRestDataConverter;
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_RestDataConverter")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // RestDataConverter_H

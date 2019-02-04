@@ -421,6 +421,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(getAlphabetWithInt:);
   methods[1].selector = @selector(getDecodabetWithInt:);
   methods[2].selector = @selector(init);
@@ -1136,6 +1137,8 @@ void AppBaseBase64_decodeFileToFileWithNSString_withNSString_(NSString *infile, 
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AppBaseBase64)
 
+J2OBJC_NAME_MAPPING(AppBaseBase64, "br.com.mobilemind.j2objc.util", "AppBase")
+
 @implementation AppBaseBase64_1
 
 - (instancetype)initWithJavaLangClassLoader:(JavaLangClassLoader *)capture$0
@@ -1161,6 +1164,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AppBaseBase64)
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithJavaLangClassLoader:withJavaIoInputStream:);
   methods[1].selector = @selector(resolveClassWithJavaIoObjectStreamClass:);
   #pragma clang diagnostic pop
@@ -1301,6 +1305,7 @@ AppBaseBase64_1 *create_AppBaseBase64_1_initWithJavaLangClassLoader_withJavaIoIn
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithJavaIoInputStream:);
   methods[1].selector = @selector(initWithJavaIoInputStream:withInt:);
   methods[2].selector = @selector(read);
@@ -1456,6 +1461,7 @@ J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AppBaseBase64_InputStream)
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithJavaIoOutputStream:);
   methods[1].selector = @selector(initWithJavaIoOutputStream:withInt:);
   methods[2].selector = @selector(writeWithInt:);

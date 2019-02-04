@@ -218,6 +218,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(isAssignableFromWithIOSClass:withIOSClass:);
   methods[2].selector = @selector(isStringWithId:);
@@ -656,3 +657,5 @@ jboolean AppBaseClassUtil_containsWithNSObjectArray_withId_(IOSObjectArray *arra
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AppBaseClassUtil)
+
+J2OBJC_NAME_MAPPING(AppBaseClassUtil, "br.com.mobilemind.j2objc.util", "AppBase")

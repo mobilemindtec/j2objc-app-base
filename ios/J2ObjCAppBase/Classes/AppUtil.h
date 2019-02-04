@@ -3,18 +3,16 @@
 //  source: ./build/j2objc/java/AppUtil.java
 //
 
-#include "J2ObjC_header.h"
+#ifndef AppUtil_H
+#define AppUtil_H
 
-#pragma push_macro("INCLUDE_ALL_AppUtil")
-#ifdef RESTRICT_AppUtil
-#define INCLUDE_ALL_AppUtil 0
-#else
-#define INCLUDE_ALL_AppUtil 1
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
-#undef RESTRICT_AppUtil
 
-#if !defined (AppBaseAppUtil_) && (INCLUDE_ALL_AppUtil || defined(INCLUDE_AppBaseAppUtil))
-#define AppBaseAppUtil_
+#include "J2ObjC_header.h"
 
 @class IOSCharArray;
 
@@ -22,7 +20,7 @@
 
 #pragma mark Public
 
-- (instancetype)init;
+- (instancetype __nonnull)init;
 
 + (NSString *)capitalizeStringWithNSString:(NSString *)string
                              withCharArray:(IOSCharArray *)charList;
@@ -71,6 +69,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBaseAppUtil)
 
 @compatibility_alias BrComMobilemindJ2objcUtilAppUtil AppBaseAppUtil;
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_AppUtil")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // AppUtil_H

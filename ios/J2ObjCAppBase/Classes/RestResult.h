@@ -3,35 +3,36 @@
 //  source: ./build/j2objc/java/RestResult.java
 //
 
+#ifndef RestResult_H
+#define RestResult_H
+
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
+#endif
+
 #include "J2ObjC_header.h"
 
-#pragma push_macro("INCLUDE_ALL_RestResult")
-#ifdef RESTRICT_RestResult
-#define INCLUDE_ALL_RestResult 0
-#else
-#define INCLUDE_ALL_RestResult 1
-#endif
-#undef RESTRICT_RestResult
-
-#if !defined (AppBaseRestResult_) && (INCLUDE_ALL_RestResult || defined(INCLUDE_AppBaseRestResult))
-#define AppBaseRestResult_
-
+@class JavaLangThrowable;
 @protocol JavaUtilList;
 
 @interface AppBaseRestResult : NSObject
 
 #pragma mark Public
 
-- (instancetype)init;
+- (instancetype __nonnull)init;
 
-- (instancetype)initWithBoolean:(jboolean)error
-                   withNSString:(NSString *)message;
+- (instancetype __nonnull)initWithBoolean:(jboolean)error
+                             withNSString:(NSString *)message;
 
-- (instancetype)initWithJavaUtilList:(id<JavaUtilList>)results;
+- (instancetype __nonnull)initWithJavaUtilList:(id<JavaUtilList>)results;
 
-- (instancetype)initWithNSString:(NSString *)message;
+- (instancetype __nonnull)initWithNSString:(NSString *)message;
 
-- (instancetype)initWithId:(id)result;
+- (instancetype __nonnull)initWithId:(id)result;
+
+- (instancetype __nonnull)initWithJavaLangThrowable:(JavaLangThrowable *)ex;
 
 - (jlong)getCurrentUnixTime;
 
@@ -79,6 +80,12 @@ FOUNDATION_EXPORT AppBaseRestResult *new_AppBaseRestResult_initWithBoolean_withN
 
 FOUNDATION_EXPORT AppBaseRestResult *create_AppBaseRestResult_initWithBoolean_withNSString_(jboolean error, NSString *message);
 
+FOUNDATION_EXPORT void AppBaseRestResult_initWithJavaLangThrowable_(AppBaseRestResult *self, JavaLangThrowable *ex);
+
+FOUNDATION_EXPORT AppBaseRestResult *new_AppBaseRestResult_initWithJavaLangThrowable_(JavaLangThrowable *ex) NS_RETURNS_RETAINED;
+
+FOUNDATION_EXPORT AppBaseRestResult *create_AppBaseRestResult_initWithJavaLangThrowable_(JavaLangThrowable *ex);
+
 FOUNDATION_EXPORT void AppBaseRestResult_initWithNSString_(AppBaseRestResult *self, NSString *message);
 
 FOUNDATION_EXPORT AppBaseRestResult *new_AppBaseRestResult_initWithNSString_(NSString *message) NS_RETURNS_RETAINED;
@@ -101,6 +108,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBaseRestResult)
 
 @compatibility_alias BrComMobilemindJ2objcRestRestResult AppBaseRestResult;
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_RestResult")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // RestResult_H

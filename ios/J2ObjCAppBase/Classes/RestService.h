@@ -3,31 +3,30 @@
 //  source: ./build/j2objc/java/RestService.java
 //
 
-#include "J2ObjC_header.h"
+#ifndef RestService_H
+#define RestService_H
 
-#pragma push_macro("INCLUDE_ALL_RestService")
-#ifdef RESTRICT_RestService
-#define INCLUDE_ALL_RestService 0
-#else
-#define INCLUDE_ALL_RestService 1
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
-#undef RESTRICT_RestService
 
-#if !defined (AppBaseRestService_) && (INCLUDE_ALL_RestService || defined(INCLUDE_AppBaseRestService))
-#define AppBaseRestService_
+#include "J2ObjC_header.h"
 
 @class JavaUtilLoggingLogger;
 
 @interface AppBaseRestService : NSObject
+@property (readonly, class) JavaUtilLoggingLogger *logger NS_SWIFT_NAME(logger);
 
 + (JavaUtilLoggingLogger *)logger;
 
 #pragma mark Public
 
-- (instancetype)initWithNSString:(NSString *)baseUrl;
+- (instancetype __nonnull)initWithNSString:(NSString *)baseUrl;
 
-- (instancetype)initWithNSString:(NSString *)baseUrl
-                         withInt:(jint)timeout;
+- (instancetype __nonnull)initWithNSString:(NSString *)baseUrl
+                                   withInt:(jint)timeout;
 
 - (AppBaseRestService *)actionWithNSString:(NSString *)a;
 
@@ -44,7 +43,7 @@
 
 // Disallowed inherited constructors, do not use.
 
-- (instancetype)init NS_UNAVAILABLE;
+- (instancetype __nonnull)init NS_UNAVAILABLE;
 
 @end
 
@@ -71,6 +70,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBaseRestService)
 
 @compatibility_alias BrComMobilemindJ2objcRestRestService AppBaseRestService;
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_RestService")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // RestService_H

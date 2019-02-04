@@ -31,6 +31,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(fromJsonWithNSString:);
   methods[2].selector = @selector(toJsonWithId:);
@@ -55,3 +56,5 @@ AppBaseRestDataConverter *create_AppBaseRestDataConverter_init() {
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AppBaseRestDataConverter)
+
+J2OBJC_NAME_MAPPING(AppBaseRestDataConverter, "br.com.mobilemind.j2objc.rest", "AppBase")

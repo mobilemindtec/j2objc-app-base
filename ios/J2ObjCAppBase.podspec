@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
     s.author           = { 'Ricardo Bocchi' => 'ricardo@mobilemind.com.br' }
     s.source           = { :git => 'https://github.com/mobilemindtec/j2objc-app-base.git', :tag => s.version.to_s }
 
-    s.ios.deployment_target = "8.0"
+    s.ios.deployment_target = "10.0"
     s.osx.deployment_target = "10.10"
 
     s.source_files = 'J2ObjCAppBase/Classes/**/*'
@@ -39,9 +39,11 @@ Pod::Spec.new do |s|
 
     s.requires_arc = true
 
+    #s.dependency 'J2ObjCGson'
+
     s.pod_target_xcconfig = {
-      "OTHER_LDFLAGS" => "-ljre_emul -ljre_zip -l iconv -l z -framework Security",
-      "FRAMEWORK_SEARCH_PATHS" => "\"$J2OBJC_HOME/framework\"",
+      "OTHER_LDFLAGS" => "-ljre_emul -ljre_zip -liconv -lz -lguava -ljavax_inject -ljsr305 -framework Security",
+      "FRAMEWORK_SEARCH_PATHS" => "\"$J2OBJC_HOME/frameworks\"",
       "LIBRARY_SEARCH_PATHS" => "\"$J2OBJC_HOME/lib\"",
       "HEADER_SEARCH_PATHS" => "\"$J2OBJC_HOME/include\"",
     }

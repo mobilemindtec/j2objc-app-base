@@ -3,29 +3,28 @@
 //  source: ./build/j2objc/java/DateConverter.java
 //
 
-#include "J2ObjC_header.h"
+#ifndef DateConverter_H
+#define DateConverter_H
 
-#pragma push_macro("INCLUDE_ALL_DateConverter")
-#ifdef RESTRICT_DateConverter
-#define INCLUDE_ALL_DateConverter 0
-#else
-#define INCLUDE_ALL_DateConverter 1
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
-#undef RESTRICT_DateConverter
 
-#if !defined (AppBaseDateConverter_) && (INCLUDE_ALL_DateConverter || defined(INCLUDE_AppBaseDateConverter))
-#define AppBaseDateConverter_
+#include "J2ObjC_header.h"
 
 @class JavaUtilDate;
 @class JavaUtilLoggingLogger;
 
 @interface AppBaseDateConverter : NSObject
+@property (readonly, class) JavaUtilLoggingLogger *logger NS_SWIFT_NAME(logger);
 
 + (JavaUtilLoggingLogger *)logger;
 
 #pragma mark Public
 
-- (instancetype)init;
+- (instancetype __nonnull)init;
 
 + (NSString *)fromWithJavaUtilDate:(JavaUtilDate *)date;
 
@@ -54,6 +53,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBaseDateConverter)
 
 @compatibility_alias BrComMobilemindJ2objcUtilDateConverter AppBaseDateConverter;
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_DateConverter")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // DateConverter_H

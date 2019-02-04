@@ -3,24 +3,22 @@
 //  source: ./build/j2objc/java/ValidatorUtil.java
 //
 
-#include "J2ObjC_header.h"
+#ifndef ValidatorUtil_H
+#define ValidatorUtil_H
 
-#pragma push_macro("INCLUDE_ALL_ValidatorUtil")
-#ifdef RESTRICT_ValidatorUtil
-#define INCLUDE_ALL_ValidatorUtil 0
-#else
-#define INCLUDE_ALL_ValidatorUtil 1
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
-#undef RESTRICT_ValidatorUtil
 
-#if !defined (AppBaseValidatorUtil_) && (INCLUDE_ALL_ValidatorUtil || defined(INCLUDE_AppBaseValidatorUtil))
-#define AppBaseValidatorUtil_
+#include "J2ObjC_header.h"
 
 @interface AppBaseValidatorUtil : NSObject
 
 #pragma mark Public
 
-- (instancetype)init;
+- (instancetype __nonnull)init;
 
 + (jboolean)isValidCNPJWithNSString:(NSString *)cnpj;
 
@@ -48,6 +46,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBaseValidatorUtil)
 
 @compatibility_alias BrComMobilemindJ2objcUtilValidatorUtil AppBaseValidatorUtil;
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_ValidatorUtil")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // ValidatorUtil_H

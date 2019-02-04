@@ -3,24 +3,22 @@
 //  source: ./build/j2objc/java/CardSupport.java
 //
 
-#include "J2ObjC_header.h"
+#ifndef CardSupport_H
+#define CardSupport_H
 
-#pragma push_macro("INCLUDE_ALL_CardSupport")
-#ifdef RESTRICT_CardSupport
-#define INCLUDE_ALL_CardSupport 0
-#else
-#define INCLUDE_ALL_CardSupport 1
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
-#undef RESTRICT_CardSupport
 
-#if !defined (AppBaseCardSupport_) && (INCLUDE_ALL_CardSupport || defined(INCLUDE_AppBaseCardSupport))
-#define AppBaseCardSupport_
+#include "J2ObjC_header.h"
 
 @interface AppBaseCardSupport : NSObject
 
 #pragma mark Public
 
-- (instancetype)init;
+- (instancetype __nonnull)init;
 
 + (NSString *)getBandeiraWithNSString:(NSString *)numero;
 
@@ -40,6 +38,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBaseCardSupport)
 
 @compatibility_alias BrComMobilemindJ2objcPaymentsCardSupport AppBaseCardSupport;
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_CardSupport")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // CardSupport_H

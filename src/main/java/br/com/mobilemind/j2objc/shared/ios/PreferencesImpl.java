@@ -1,9 +1,13 @@
 package br.com.mobilemind.j2objc.shared.ios;
 
-
 import br.com.mobilemind.j2objc.shared.Preferences;
+import java.util.List;
+import java.util.LinkedList;
 
 public class PreferencesImpl implements Preferences {
+
+    private LinkedList list;
+
     @Override
     public native boolean hasKey(String keyName)/*-[
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
@@ -62,5 +66,25 @@ public class PreferencesImpl implements Preferences {
     public native void remove(String keyName)/*-[
         NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
         [preferences removeObjectForKey: keyName];
+    ]-*/;
+
+    @Override
+    public native void clear()/*-[
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSDictionary *defaultsDictionary = [preferences dictionaryRepresentation];
+        for (NSString *key in [defaultsDictionary allKeys]) {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+        }
+    ]-*/;
+
+    @Override
+    public native List<String> allKeys()/*-[
+        NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+        NSDictionary *defaultsDictionary = [ preferences dictionaryRepresentation];
+        id<JavaUtilList> items = new_JavaUtilLinkedList_init();
+        for (NSString *key in [defaultsDictionary allKeys]) {
+            [items addWithId:key];
+        }
+        return items;
     ]-*/;
 }

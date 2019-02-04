@@ -3,21 +3,16 @@
 //  source: ./build/j2objc/java/RestException.java
 //
 
-#include "J2ObjC_header.h"
+#ifndef RestException_H
+#define RestException_H
 
-#pragma push_macro("INCLUDE_ALL_RestException")
-#ifdef RESTRICT_RestException
-#define INCLUDE_ALL_RestException 0
-#else
-#define INCLUDE_ALL_RestException 1
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
-#undef RESTRICT_RestException
 
-#if !defined (AppBaseRestException_) && (INCLUDE_ALL_RestException || defined(INCLUDE_AppBaseRestException))
-#define AppBaseRestException_
-
-#define RESTRICT_JavaLangRuntimeException 1
-#define INCLUDE_JavaLangRuntimeException 1
+#include "J2ObjC_header.h"
 #include "java/lang/RuntimeException.h"
 
 @class JavaLangException;
@@ -27,33 +22,33 @@
 
 #pragma mark Public
 
-- (instancetype)init;
+- (instancetype __nonnull)init;
 
-- (instancetype)initWithJavaLangException:(JavaLangException *)e;
+- (instancetype __nonnull)initWithJavaLangException:(JavaLangException *)e;
 
-- (instancetype)initWithInt:(jint)httpStatus;
+- (instancetype __nonnull)initWithInt:(jint)httpStatus;
 
-- (instancetype)initWithInt:(jint)httpStatus
-               withNSString:(NSString *)message;
+- (instancetype __nonnull)initWithInt:(jint)httpStatus
+                         withNSString:(NSString *)message;
 
-- (instancetype)initWithNSString:(NSString *)message;
+- (instancetype __nonnull)initWithNSString:(NSString *)message;
 
-- (instancetype)initWithNSString:(NSString *)message
-           withJavaLangException:(JavaLangException *)e;
+- (instancetype __nonnull)initWithNSString:(NSString *)message
+                     withJavaLangException:(JavaLangException *)e;
 
 - (jint)getHttpSatatus;
 
 // Disallowed inherited constructors, do not use.
 
-- (instancetype)initWithJavaLangThrowable:(JavaLangThrowable *)arg0 NS_UNAVAILABLE;
+- (instancetype __nonnull)initWithJavaLangThrowable:(JavaLangThrowable *)arg0 NS_UNAVAILABLE;
 
-- (instancetype)initWithNSString:(NSString *)arg0
-           withJavaLangThrowable:(JavaLangThrowable *)arg1 NS_UNAVAILABLE;
+- (instancetype __nonnull)initWithNSString:(NSString *)arg0
+                     withJavaLangThrowable:(JavaLangThrowable *)arg1 NS_UNAVAILABLE;
 
-- (instancetype)initWithNSString:(NSString *)arg0
-           withJavaLangThrowable:(JavaLangThrowable *)arg1
-                     withBoolean:(jboolean)arg2
-                     withBoolean:(jboolean)arg3 NS_UNAVAILABLE;
+- (instancetype __nonnull)initWithNSString:(NSString *)arg0
+                     withJavaLangThrowable:(JavaLangThrowable *)arg1
+                               withBoolean:(jboolean)arg2
+                               withBoolean:(jboolean)arg3 NS_UNAVAILABLE;
 
 @end
 
@@ -99,6 +94,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBaseRestException)
 
 @compatibility_alias BrComMobilemindJ2objcRestRestException AppBaseRestException;
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_RestException")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // RestException_H

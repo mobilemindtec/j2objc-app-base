@@ -3,26 +3,36 @@
 //  source: ./build/j2objc/java/Base64.java
 //
 
-#include "J2ObjC_header.h"
+#ifndef Base64_H
+#define Base64_H
 
-#pragma push_macro("INCLUDE_ALL_Base64")
-#ifdef RESTRICT_Base64
-#define INCLUDE_ALL_Base64 0
-#else
-#define INCLUDE_ALL_Base64 1
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
-#undef RESTRICT_Base64
 
-#if !defined (AppBaseBase64_) && (INCLUDE_ALL_Base64 || defined(INCLUDE_AppBaseBase64))
-#define AppBaseBase64_
+#include "J2ObjC_header.h"
+#include "java/io/FilterInputStream.h"
+#include "java/io/FilterOutputStream.h"
 
 @class IOSByteArray;
+@class JavaIoInputStream;
+@class JavaIoOutputStream;
 @class JavaLangClassLoader;
 @class JavaNioByteBuffer;
 @class JavaNioCharBuffer;
 @protocol JavaIoSerializable;
 
 @interface AppBaseBase64 : NSObject
+@property (readonly, class) jint NO_OPTIONS NS_SWIFT_NAME(NO_OPTIONS);
+@property (readonly, class) jint ENCODE NS_SWIFT_NAME(ENCODE);
+@property (readonly, class) jint DECODE NS_SWIFT_NAME(DECODE);
+@property (readonly, class) jint GZIP NS_SWIFT_NAME(GZIP);
+@property (readonly, class) jint DONT_GUNZIP NS_SWIFT_NAME(DONT_GUNZIP);
+@property (readonly, class) jint DO_BREAK_LINES NS_SWIFT_NAME(DO_BREAK_LINES);
+@property (readonly, class) jint URL_SAFE NS_SWIFT_NAME(URL_SAFE);
+@property (readonly, class) jint ORDERED NS_SWIFT_NAME(ORDERED);
 
 + (jint)NO_OPTIONS;
 
@@ -204,26 +214,14 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBaseBase64)
 
 @compatibility_alias BrComMobilemindJ2objcUtilBase64 AppBaseBase64;
 
-#endif
-
-#if !defined (AppBaseBase64_InputStream_) && (INCLUDE_ALL_Base64 || defined(INCLUDE_AppBaseBase64_InputStream))
-#define AppBaseBase64_InputStream_
-
-#define RESTRICT_JavaIoFilterInputStream 1
-#define INCLUDE_JavaIoFilterInputStream 1
-#include "java/io/FilterInputStream.h"
-
-@class IOSByteArray;
-@class JavaIoInputStream;
-
 @interface AppBaseBase64_InputStream : JavaIoFilterInputStream
 
 #pragma mark Public
 
-- (instancetype)initWithJavaIoInputStream:(JavaIoInputStream *)inArg;
+- (instancetype __nonnull)initWithJavaIoInputStream:(JavaIoInputStream *)inArg;
 
-- (instancetype)initWithJavaIoInputStream:(JavaIoInputStream *)inArg
-                                  withInt:(jint)options;
+- (instancetype __nonnull)initWithJavaIoInputStream:(JavaIoInputStream *)inArg
+                                            withInt:(jint)options;
 
 - (jint)read;
 
@@ -249,26 +247,14 @@ FOUNDATION_EXPORT AppBaseBase64_InputStream *create_AppBaseBase64_InputStream_in
 
 J2OBJC_TYPE_LITERAL_HEADER(AppBaseBase64_InputStream)
 
-#endif
-
-#if !defined (AppBaseBase64_OutputStream_) && (INCLUDE_ALL_Base64 || defined(INCLUDE_AppBaseBase64_OutputStream))
-#define AppBaseBase64_OutputStream_
-
-#define RESTRICT_JavaIoFilterOutputStream 1
-#define INCLUDE_JavaIoFilterOutputStream 1
-#include "java/io/FilterOutputStream.h"
-
-@class IOSByteArray;
-@class JavaIoOutputStream;
-
 @interface AppBaseBase64_OutputStream : JavaIoFilterOutputStream
 
 #pragma mark Public
 
-- (instancetype)initWithJavaIoOutputStream:(JavaIoOutputStream *)outArg;
+- (instancetype __nonnull)initWithJavaIoOutputStream:(JavaIoOutputStream *)outArg;
 
-- (instancetype)initWithJavaIoOutputStream:(JavaIoOutputStream *)outArg
-                                   withInt:(jint)options;
+- (instancetype __nonnull)initWithJavaIoOutputStream:(JavaIoOutputStream *)outArg
+                                             withInt:(jint)options;
 
 - (void)close;
 
@@ -302,6 +288,8 @@ FOUNDATION_EXPORT AppBaseBase64_OutputStream *create_AppBaseBase64_OutputStream_
 
 J2OBJC_TYPE_LITERAL_HEADER(AppBaseBase64_OutputStream)
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_Base64")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // Base64_H

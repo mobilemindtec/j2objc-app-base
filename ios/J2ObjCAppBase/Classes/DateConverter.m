@@ -49,6 +49,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(fromWithJavaUtilDate:);
   methods[2].selector = @selector(toWithNSString:);
@@ -106,3 +107,5 @@ JavaUtilDate *AppBaseDateConverter_toWithNSString_(NSString *date) {
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AppBaseDateConverter)
+
+J2OBJC_NAME_MAPPING(AppBaseDateConverter, "br.com.mobilemind.j2objc.util", "AppBase")

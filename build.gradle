@@ -1,22 +1,29 @@
 apply plugin: 'java-library'
 
+def J2OBJC_PATH =  "/opt/j2objc"
+
 repositories {
-    jcenter()
+  jcenter()
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.12'
-    compile fileTree(dir: '../j2objc-json/build/libs', include: '*.jar')
 
-    compile fileTree(dir: '/opt/j2objc/lib', include: 'jre_emul.jar')
-    compile fileTree(dir: '/opt/j2objc/lib', include: 'j2objc.jar')
-    compile fileTree(dir: '/opt/j2objc/lib', include: 'j2objc_annotations.jar')
+
+  testImplementation 'junit:junit:4.12'
+  compile fileTree(dir: '../j2objc-gson/build/libs', include: '*.jar')
+
+  compile fileTree(dir: "${J2OBJC_PATH}/lib", include: 'jre_emul.jar')
+  compile fileTree(dir: "${J2OBJC_PATH}/lib", include: 'j2objc.jar')
+  compile fileTree(dir: "${J2OBJC_PATH}/lib", include: 'j2objc_annotations.jar')
+  compile fileTree(dir: "${J2OBJC_PATH}/lib", include: 'guava-25.1-jre.jar')
+  compile fileTree(dir: "${J2OBJC_PATH}/lib", include: 'guava-25.1-android.jar')
+  compile fileTree(dir: "${J2OBJC_PATH}/lib", include: 'jsr305-3.0.0.jar')
+  compile fileTree(dir: "${J2OBJC_PATH}/lib", include: 'javax.inject-1.jar')
 
 }
 
 sourceSets {
-    main.java.srcDirs += 'src/main/java'
-    //main.java.srcDirs += '../sqlighter/android/';
+  main.java.srcDirs += 'src/main/java'
 }
 
 task j2objc(type: Exec) {
@@ -24,7 +31,13 @@ task j2objc(type: Exec) {
   args "-c", "./j2objc-compile.sh"
 }
 
-tasks.assemble.finalizedBy(j2objc)
+task j2objcClean(type: Exec) {
+  executable "sh"
+  args "-c", "./j2objc-clean.sh"
+}
+
+//tasks.assemble.finalizedBy(j2objc)
+tasks.clean.finalizedBy(j2objcClean)
 tasks.build.finalizedBy(j2objc)
 
 //gradle init --type java-library

@@ -3,30 +3,29 @@
 //  source: ./build/j2objc/java/SharedFactory.java
 //
 
-#include "J2ObjC_header.h"
+#ifndef SharedFactory_H
+#define SharedFactory_H
 
-#pragma push_macro("INCLUDE_ALL_SharedFactory")
-#ifdef RESTRICT_SharedFactory
-#define INCLUDE_ALL_SharedFactory 0
-#else
-#define INCLUDE_ALL_SharedFactory 1
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
-#undef RESTRICT_SharedFactory
 
-#if !defined (AppBaseSharedFactory_) && (INCLUDE_ALL_SharedFactory || defined(INCLUDE_AppBaseSharedFactory))
-#define AppBaseSharedFactory_
+#include "J2ObjC_header.h"
 
 @class IOSClass;
 @class JavaUtilLoggingLogger;
 @protocol AppBasePreferences;
 
 @interface AppBaseSharedFactory : NSObject
+@property (readonly, class) JavaUtilLoggingLogger *logger NS_SWIFT_NAME(logger);
 
 + (JavaUtilLoggingLogger *)logger;
 
 #pragma mark Public
 
-- (instancetype)init;
+- (instancetype __nonnull)init;
 
 + (void)addShared:(IOSClass *)sharedClass
                to:(IOSClass *)interfaceClass;
@@ -60,6 +59,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBaseSharedFactory)
 
 @compatibility_alias BrComMobilemindJ2objcSharedSharedFactory AppBaseSharedFactory;
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_SharedFactory")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // SharedFactory_H

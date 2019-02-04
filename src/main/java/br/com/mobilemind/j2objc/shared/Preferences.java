@@ -1,5 +1,7 @@
 package br.com.mobilemind.j2objc.shared;
 
+import java.util.List;
+
 public interface Preferences {
 
     boolean hasKey(String keyName);
@@ -18,4 +20,8 @@ public interface Preferences {
     boolean getBool(String keyName);
 
     void remove(String keyName);
+
+    void clear();
+
+    List<String> allKeys();
 }

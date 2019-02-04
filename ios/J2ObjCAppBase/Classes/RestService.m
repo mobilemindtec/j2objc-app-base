@@ -186,6 +186,7 @@ JavaUtilLoggingLogger *AppBaseRestService_logger;
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(initWithNSString:);
   methods[1].selector = @selector(initWithNSString:withInt:);
   methods[2].selector = @selector(headerWithNSString:withNSString:);
@@ -340,3 +341,5 @@ void AppBaseRestService_tratarErroWithJavaNetHttpURLConnection_(AppBaseRestServi
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AppBaseRestService)
+
+J2OBJC_NAME_MAPPING(AppBaseRestService, "br.com.mobilemind.j2objc.rest", "AppBase")

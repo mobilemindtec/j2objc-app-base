@@ -3,28 +3,29 @@
 //  source: ./build/j2objc/java/PreferencesImpl.java
 //
 
-#include "J2ObjC_header.h"
+#ifndef PreferencesImpl_H
+#define PreferencesImpl_H
 
-#pragma push_macro("INCLUDE_ALL_PreferencesImpl")
-#ifdef RESTRICT_PreferencesImpl
-#define INCLUDE_ALL_PreferencesImpl 0
-#else
-#define INCLUDE_ALL_PreferencesImpl 1
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
-#undef RESTRICT_PreferencesImpl
 
-#if !defined (IOSPreferencesImpl_) && (INCLUDE_ALL_PreferencesImpl || defined(INCLUDE_IOSPreferencesImpl))
-#define IOSPreferencesImpl_
-
-#define RESTRICT_Preferences 1
-#define INCLUDE_AppBasePreferences 1
+#include "J2ObjC_header.h"
 #include "Preferences.h"
+
+@protocol JavaUtilList;
 
 @interface IOSPreferencesImpl : NSObject < AppBasePreferences >
 
 #pragma mark Public
 
-- (instancetype)init;
+- (instancetype __nonnull)init;
+
+- (id<JavaUtilList>)allKeys;
+
+- (void)clear;
 
 - (jboolean)getBoolWithNSString:(NSString *)keyName;
 
@@ -59,6 +60,8 @@ J2OBJC_TYPE_LITERAL_HEADER(IOSPreferencesImpl)
 
 @compatibility_alias BrComMobilemindJ2objcSharedIosPreferencesImpl IOSPreferencesImpl;
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_PreferencesImpl")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // PreferencesImpl_H

@@ -3,18 +3,16 @@
 //  source: ./build/j2objc/java/RestResultAsString.java
 //
 
-#include "J2ObjC_header.h"
+#ifndef RestResultAsString_H
+#define RestResultAsString_H
 
-#pragma push_macro("INCLUDE_ALL_RestResultAsString")
-#ifdef RESTRICT_RestResultAsString
-#define INCLUDE_ALL_RestResultAsString 0
-#else
-#define INCLUDE_ALL_RestResultAsString 1
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
-#undef RESTRICT_RestResultAsString
 
-#if !defined (AppBaseRestResultAsString_) && (INCLUDE_ALL_RestResultAsString || defined(INCLUDE_AppBaseRestResultAsString))
-#define AppBaseRestResultAsString_
+#include "J2ObjC_header.h"
 
 @protocol JavaUtilList;
 
@@ -22,15 +20,15 @@
 
 #pragma mark Public
 
-- (instancetype)init;
+- (instancetype __nonnull)init;
 
-- (instancetype)initWithBoolean:(jboolean)error
-                   withNSString:(NSString *)message;
+- (instancetype __nonnull)initWithBoolean:(jboolean)error
+                             withNSString:(NSString *)message;
 
-- (instancetype)initWithJavaUtilList:(id<JavaUtilList>)results;
+- (instancetype __nonnull)initWithJavaUtilList:(id<JavaUtilList>)results;
 
-- (instancetype)initWithNSString:(NSString *)message
-                    withNSString:(NSString *)result;
+- (instancetype __nonnull)initWithNSString:(NSString *)message
+                              withNSString:(NSString *)result;
 
 - (NSString *)getMessage;
 
@@ -82,6 +80,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBaseRestResultAsString)
 
 @compatibility_alias BrComMobilemindJ2objcRestRestResultAsString AppBaseRestResultAsString;
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_RestResultAsString")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // RestResultAsString_H

@@ -3,18 +3,18 @@
 //  source: ./build/j2objc/java/Preferences.java
 //
 
+#ifndef Preferences_H
+#define Preferences_H
+
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
+#endif
+
 #include "J2ObjC_header.h"
 
-#pragma push_macro("INCLUDE_ALL_Preferences")
-#ifdef RESTRICT_Preferences
-#define INCLUDE_ALL_Preferences 0
-#else
-#define INCLUDE_ALL_Preferences 1
-#endif
-#undef RESTRICT_Preferences
-
-#if !defined (AppBasePreferences_) && (INCLUDE_ALL_Preferences || defined(INCLUDE_AppBasePreferences))
-#define AppBasePreferences_
+@protocol JavaUtilList;
 
 @protocol AppBasePreferences < JavaObject >
 
@@ -37,6 +37,10 @@
 
 - (void)removeWithNSString:(NSString *)keyName;
 
+- (void)clear;
+
+- (id<JavaUtilList>)allKeys;
+
 @end
 
 J2OBJC_EMPTY_STATIC_INIT(AppBasePreferences)
@@ -45,6 +49,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBasePreferences)
 
 #define BrComMobilemindJ2objcSharedPreferences AppBasePreferences
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_Preferences")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // Preferences_H

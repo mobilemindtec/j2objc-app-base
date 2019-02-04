@@ -69,6 +69,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(calcularDigitoWithNSString:withIntArray:);
   methods[2].selector = @selector(isValidCPFWithNSString:);
@@ -146,3 +147,5 @@ jboolean AppBaseValidatorUtil_isValidEmailWithNSString_(NSString *email) {
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AppBaseValidatorUtil)
+
+J2OBJC_NAME_MAPPING(AppBaseValidatorUtil, "br.com.mobilemind.j2objc.util", "AppBase")

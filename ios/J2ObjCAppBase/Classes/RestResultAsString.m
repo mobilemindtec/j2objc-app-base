@@ -101,6 +101,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(initWithBoolean:withNSString:);
   methods[2].selector = @selector(initWithNSString:withNSString:);
@@ -182,3 +183,5 @@ AppBaseRestResultAsString *create_AppBaseRestResultAsString_initWithJavaUtilList
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(AppBaseRestResultAsString)
+
+J2OBJC_NAME_MAPPING(AppBaseRestResultAsString, "br.com.mobilemind.j2objc.rest", "AppBase")

@@ -3,24 +3,22 @@
 //  source: ./build/j2objc/java/NumberMask.java
 //
 
-#include "J2ObjC_header.h"
+#ifndef NumberMask_H
+#define NumberMask_H
 
-#pragma push_macro("INCLUDE_ALL_NumberMask")
-#ifdef RESTRICT_NumberMask
-#define INCLUDE_ALL_NumberMask 0
-#else
-#define INCLUDE_ALL_NumberMask 1
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
-#undef RESTRICT_NumberMask
 
-#if !defined (AppBaseNumberMask_) && (INCLUDE_ALL_NumberMask || defined(INCLUDE_AppBaseNumberMask))
-#define AppBaseNumberMask_
+#include "J2ObjC_header.h"
 
 @interface AppBaseNumberMask : NSObject
 
 #pragma mark Public
 
-- (instancetype)init;
+- (instancetype __nonnull)init;
 
 + (NSString *)applyWithNSString:(NSString *)text
                    withNSString:(NSString *)pattern;
@@ -62,6 +60,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBaseNumberMask)
 
 @compatibility_alias BrComMobilemindJ2objcUtilNumberMask AppBaseNumberMask;
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_NumberMask")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // NumberMask_H

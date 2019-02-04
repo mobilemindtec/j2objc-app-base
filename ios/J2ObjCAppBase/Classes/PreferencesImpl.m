@@ -5,6 +5,17 @@
 
 #include "J2ObjC_source.h"
 #include "PreferencesImpl.h"
+#include "java/util/LinkedList.h"
+#include "java/util/List.h"
+
+@interface IOSPreferencesImpl () {
+ @public
+  JavaUtilLinkedList *list_;
+}
+
+@end
+
+J2OBJC_FIELD_SETTER(IOSPreferencesImpl, list_, JavaUtilLinkedList *)
 
 @implementation IOSPreferencesImpl
 
@@ -70,6 +81,24 @@ J2OBJC_IGNORE_DESIGNATED_END
   [preferences removeObjectForKey: keyName];
 }
 
+- (void)clear {
+  NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+  NSDictionary *defaultsDictionary = [preferences dictionaryRepresentation];
+  for (NSString *key in [defaultsDictionary allKeys]) {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+  }
+}
+
+- (id<JavaUtilList>)allKeys {
+  NSUserDefaults *preferences = [NSUserDefaults standardUserDefaults];
+  NSDictionary *defaultsDictionary = [ preferences dictionaryRepresentation];
+  id<JavaUtilList> items = new_JavaUtilLinkedList_init();
+  for (NSString *key in [defaultsDictionary allKeys]) {
+    [items addWithId:key];
+  }
+  return items;
+}
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
@@ -81,9 +110,12 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "Z", 0x101, 8, 9, -1, -1, -1, -1 },
     { NULL, "Z", 0x101, 10, 1, -1, -1, -1, -1 },
     { NULL, "V", 0x101, 11, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x101, -1, -1, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilList;", 0x101, -1, -1, -1, 12, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
+  #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(hasKeyWithNSString:);
   methods[2].selector = @selector(setStringWithNSString:withNSString:);
@@ -93,9 +125,14 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[6].selector = @selector(setBoolWithNSString:withBoolean:);
   methods[7].selector = @selector(getBoolWithNSString:);
   methods[8].selector = @selector(removeWithNSString:);
+  methods[9].selector = @selector(clear);
+  methods[10].selector = @selector(allKeys);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "hasKey", "LNSString;", "setString", "LNSString;LNSString;", "getString", "setInt", "LNSString;I", "getInt", "setBool", "LNSString;Z", "getBool", "remove" };
-  static const J2ObjcClassInfo _IOSPreferencesImpl = { "PreferencesImpl", "br.com.mobilemind.j2objc.shared.ios", ptrTable, methods, NULL, 7, 0x1, 9, 0, -1, -1, -1, -1, -1 };
+  static const J2ObjcFieldInfo fields[] = {
+    { "list_", "LJavaUtilLinkedList;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
+  };
+  static const void *ptrTable[] = { "hasKey", "LNSString;", "setString", "LNSString;LNSString;", "getString", "setInt", "LNSString;I", "getInt", "setBool", "LNSString;Z", "getBool", "remove", "()Ljava/util/List<Ljava/lang/String;>;" };
+  static const J2ObjcClassInfo _IOSPreferencesImpl = { "PreferencesImpl", "br.com.mobilemind.j2objc.shared.ios", ptrTable, methods, fields, 7, 0x1, 11, 1, -1, -1, -1, -1, -1 };
   return &_IOSPreferencesImpl;
 }
 
@@ -114,3 +151,5 @@ IOSPreferencesImpl *create_IOSPreferencesImpl_init() {
 }
 
 J2OBJC_CLASS_TYPE_LITERAL_SOURCE(IOSPreferencesImpl)
+
+J2OBJC_NAME_MAPPING(IOSPreferencesImpl, "br.com.mobilemind.j2objc.shared.ios", "IOS")

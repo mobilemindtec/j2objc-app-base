@@ -3,18 +3,16 @@
 //  source: ./build/j2objc/java/ClassUtil.java
 //
 
-#include "J2ObjC_header.h"
+#ifndef ClassUtil_H
+#define ClassUtil_H
 
-#pragma push_macro("INCLUDE_ALL_ClassUtil")
-#ifdef RESTRICT_ClassUtil
-#define INCLUDE_ALL_ClassUtil 0
-#else
-#define INCLUDE_ALL_ClassUtil 1
+#if __has_feature(nullability)
+#pragma clang diagnostic push
+#pragma GCC diagnostic ignored "-Wnullability"
+#pragma GCC diagnostic ignored "-Wnullability-completeness"
 #endif
-#undef RESTRICT_ClassUtil
 
-#if !defined (AppBaseClassUtil_) && (INCLUDE_ALL_ClassUtil || defined(INCLUDE_AppBaseClassUtil))
-#define AppBaseClassUtil_
+#include "J2ObjC_header.h"
 
 @class IOSClass;
 @class IOSObjectArray;
@@ -23,6 +21,9 @@
 @protocol JavaUtilList;
 
 @interface AppBaseClassUtil : NSObject
+@property (readonly, class) jint GET_METHOD NS_SWIFT_NAME(GET_METHOD);
+@property (readonly, class) jint SET_METHOD NS_SWIFT_NAME(SET_METHOD);
+@property (readonly, class) jint ANY_METHOD NS_SWIFT_NAME(ANY_METHOD);
 
 + (jint)GET_METHOD;
 
@@ -32,7 +33,7 @@
 
 #pragma mark Public
 
-- (instancetype)init;
+- (instancetype __nonnull)init;
 
 + (jboolean)containsWithNSObjectArray:(IOSObjectArray *)array
                                withId:(id)v;
@@ -175,6 +176,8 @@ J2OBJC_TYPE_LITERAL_HEADER(AppBaseClassUtil)
 
 @compatibility_alias BrComMobilemindJ2objcUtilClassUtil AppBaseClassUtil;
 
-#endif
 
-#pragma pop_macro("INCLUDE_ALL_ClassUtil")
+#if __has_feature(nullability)
+#pragma clang diagnostic pop
+#endif
+#endif // ClassUtil_H
