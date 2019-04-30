@@ -23,6 +23,13 @@ public class SharedFactory {
         ITEMS.put(keyName, sharedClass);
     }
 
+    @ObjectiveCName("addSharedInstance:to:")
+    public static void Add(Object instance, Class interfaceClass){
+        String keyName = interfaceClass.getName();
+        ITEMS.put(keyName, instance.getClass());
+        OBJECTS.put(keyName, instance);
+    }    
+
     public static Preferences getPreferences() {
 
         String keyName = Preferences.class.getName();

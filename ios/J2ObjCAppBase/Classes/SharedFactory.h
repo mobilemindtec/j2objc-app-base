@@ -30,6 +30,9 @@
 + (void)addShared:(IOSClass *)sharedClass
                to:(IOSClass *)interfaceClass;
 
++ (void)addSharedInstance:(id)instance
+                       to:(IOSClass *)interfaceClass;
+
 + (id<AppBasePreferences>)getPreferences;
 
 + (void)initIOS OBJC_METHOD_FAMILY_NONE;
@@ -50,6 +53,8 @@ FOUNDATION_EXPORT AppBaseSharedFactory *new_AppBaseSharedFactory_init(void) NS_R
 FOUNDATION_EXPORT AppBaseSharedFactory *create_AppBaseSharedFactory_init(void);
 
 FOUNDATION_EXPORT void AppBaseSharedFactory_addShared_to_(IOSClass *sharedClass, IOSClass *interfaceClass);
+
+FOUNDATION_EXPORT void AppBaseSharedFactory_addSharedInstance_to_(id instance, IOSClass *interfaceClass);
 
 FOUNDATION_EXPORT id<AppBasePreferences> AppBaseSharedFactory_getPreferences(void);
 

@@ -47,6 +47,11 @@ J2OBJC_IGNORE_DESIGNATED_END
   AppBaseSharedFactory_addShared_to_(sharedClass, interfaceClass);
 }
 
++ (void)addSharedInstance:(id)instance
+                       to:(IOSClass *)interfaceClass {
+  AppBaseSharedFactory_addSharedInstance_to_(instance, interfaceClass);
+}
+
 + (id<AppBasePreferences>)getPreferences {
   return AppBaseSharedFactory_getPreferences();
 }
@@ -59,6 +64,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x9, 0, 1, -1, -1, -1, -1 },
+    { NULL, "V", 0x9, 0, 2, -1, -1, -1, -1 },
     { NULL, "LAppBasePreferences;", 0x9, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x9, -1, -1, -1, -1, -1, -1 },
   };
@@ -67,16 +73,17 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(addShared:to:);
-  methods[2].selector = @selector(getPreferences);
-  methods[3].selector = @selector(initIOS);
+  methods[2].selector = @selector(addSharedInstance:to:);
+  methods[3].selector = @selector(getPreferences);
+  methods[4].selector = @selector(initIOS);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "logger", "LJavaUtilLoggingLogger;", .constantValue.asLong = 0, 0x1c, -1, 2, -1, -1 },
-    { "ITEMS", "LJavaUtilMap;", .constantValue.asLong = 0, 0xa, -1, 3, 4, -1 },
-    { "OBJECTS", "LJavaUtilMap;", .constantValue.asLong = 0, 0xa, -1, 5, 6, -1 },
+    { "logger", "LJavaUtilLoggingLogger;", .constantValue.asLong = 0, 0x1c, -1, 3, -1, -1 },
+    { "ITEMS", "LJavaUtilMap;", .constantValue.asLong = 0, 0xa, -1, 4, 5, -1 },
+    { "OBJECTS", "LJavaUtilMap;", .constantValue.asLong = 0, 0xa, -1, 6, 7, -1 },
   };
-  static const void *ptrTable[] = { "Add", "LIOSClass;LIOSClass;", &AppBaseSharedFactory_logger, &AppBaseSharedFactory_ITEMS, "Ljava/util/Map<Ljava/lang/String;Ljava/lang/Class;>;", &AppBaseSharedFactory_OBJECTS, "Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;" };
-  static const J2ObjcClassInfo _AppBaseSharedFactory = { "SharedFactory", "br.com.mobilemind.j2objc.shared", ptrTable, methods, fields, 7, 0x1, 4, 3, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "Add", "LIOSClass;LIOSClass;", "LNSObject;LIOSClass;", &AppBaseSharedFactory_logger, &AppBaseSharedFactory_ITEMS, "Ljava/util/Map<Ljava/lang/String;Ljava/lang/Class;>;", &AppBaseSharedFactory_OBJECTS, "Ljava/util/Map<Ljava/lang/String;Ljava/lang/Object;>;" };
+  static const J2ObjcClassInfo _AppBaseSharedFactory = { "SharedFactory", "br.com.mobilemind.j2objc.shared", ptrTable, methods, fields, 7, 0x1, 5, 3, -1, -1, -1, -1, -1 };
   return &_AppBaseSharedFactory;
 }
 
@@ -107,6 +114,13 @@ void AppBaseSharedFactory_addShared_to_(IOSClass *sharedClass, IOSClass *interfa
   AppBaseSharedFactory_initialize();
   NSString *keyName = [((IOSClass *) nil_chk(interfaceClass)) getName];
   (void) [((id<JavaUtilMap>) nil_chk(AppBaseSharedFactory_ITEMS)) putWithId:keyName withId:sharedClass];
+}
+
+void AppBaseSharedFactory_addSharedInstance_to_(id instance, IOSClass *interfaceClass) {
+  AppBaseSharedFactory_initialize();
+  NSString *keyName = [((IOSClass *) nil_chk(interfaceClass)) getName];
+  (void) [((id<JavaUtilMap>) nil_chk(AppBaseSharedFactory_ITEMS)) putWithId:keyName withId:[nil_chk(instance) java_getClass]];
+  (void) [((id<JavaUtilMap>) nil_chk(AppBaseSharedFactory_OBJECTS)) putWithId:keyName withId:instance];
 }
 
 id<AppBasePreferences> AppBaseSharedFactory_getPreferences() {
