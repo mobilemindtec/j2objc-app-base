@@ -115,7 +115,7 @@ jint AppBaseValidatorUtil_calcularDigitoWithNSString_withIntArray_(NSString *str
     digito = JavaLangInteger_parseIntWithNSString_([str java_substring:indice endIndex:indice + 1]);
     soma += digito * IOSIntArray_Get(peso, ((IOSIntArray *) nil_chk(peso))->size_ - [str java_length] + indice);
   }
-  soma = 11 - soma % 11;
+  soma = 11 - JreIntMod(soma, 11);
   return soma > 9 ? 0 : soma;
 }
 

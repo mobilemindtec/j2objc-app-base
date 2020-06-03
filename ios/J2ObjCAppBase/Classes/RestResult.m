@@ -6,7 +6,10 @@
 #include "J2ObjC_source.h"
 #include "RestResult.h"
 #include "java/lang/Throwable.h"
+#include "java/util/HashMap.h"
 #include "java/util/List.h"
+#include "java/util/Map.h"
+#include "java/util/Set.h"
 
 @interface AppBaseRestResult () {
  @public
@@ -16,7 +19,7 @@
   id<JavaUtilList> results_;
   jlong currentUnixTime_;
   jint totalCount_;
-  id<JavaUtilList> errors_;
+  id<JavaUtilMap> errors_;
 }
 
 @end
@@ -24,7 +27,7 @@
 J2OBJC_FIELD_SETTER(AppBaseRestResult, message_, NSString *)
 J2OBJC_FIELD_SETTER(AppBaseRestResult, result_, id)
 J2OBJC_FIELD_SETTER(AppBaseRestResult, results_, id<JavaUtilList>)
-J2OBJC_FIELD_SETTER(AppBaseRestResult, errors_, id<JavaUtilList>)
+J2OBJC_FIELD_SETTER(AppBaseRestResult, errors_, id<JavaUtilMap>)
 
 @implementation AppBaseRestResult
 
@@ -74,7 +77,14 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (NSString *)getMessage {
-  return message_;
+  NSString *val = message_;
+  if (self->errors_ != nil && ![self->errors_ isEmpty]) {
+    (void) JreStrAppendStrong(&val, "$", @"\n\n");
+    for (NSString * __strong key in nil_chk([self->errors_ keySet])) {
+      (void) JreStrAppendStrong(&val, "$$$C", key, @": ", [((id<JavaUtilMap>) nil_chk(self->errors_)) getWithId:key], 0x000a);
+    }
+  }
+  return val;
 }
 
 - (void)setMessageWithNSString:(NSString *)message {
@@ -113,11 +123,11 @@ J2OBJC_IGNORE_DESIGNATED_END
   self->totalCount_ = totalCount;
 }
 
-- (id<JavaUtilList>)getErrors {
+- (id<JavaUtilMap>)getErrors {
   return errors_;
 }
 
-- (void)setErrorsWithJavaUtilList:(id<JavaUtilList>)errors {
+- (void)setErrorsWithJavaUtilMap:(id<JavaUtilMap>)errors {
   self->errors_ = errors;
 }
 
@@ -142,8 +152,8 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "V", 0x1, 14, 15, -1, -1, -1, -1 },
     { NULL, "I", 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 16, 17, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilList;", 0x1, -1, -1, -1, 18, -1, -1 },
-    { NULL, "V", 0x1, 19, 5, -1, 20, -1, -1 },
+    { NULL, "LJavaUtilMap;", 0x1, -1, -1, -1, 18, -1, -1 },
+    { NULL, "V", 0x1, 19, 20, -1, 21, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -168,19 +178,19 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[17].selector = @selector(getTotalCount);
   methods[18].selector = @selector(setTotalCountWithInt:);
   methods[19].selector = @selector(getErrors);
-  methods[20].selector = @selector(setErrorsWithJavaUtilList:);
+  methods[20].selector = @selector(setErrorsWithJavaUtilMap:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "error_", "Z", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "message_", "LNSString;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
-    { "result_", "LNSObject;", .constantValue.asLong = 0, 0x2, -1, -1, 21, -1 },
-    { "results_", "LJavaUtilList;", .constantValue.asLong = 0, 0x2, -1, -1, 22, -1 },
+    { "result_", "LNSObject;", .constantValue.asLong = 0, 0x2, -1, -1, 22, -1 },
+    { "results_", "LJavaUtilList;", .constantValue.asLong = 0, 0x2, -1, -1, 23, -1 },
     { "currentUnixTime_", "J", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "totalCount_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
-    { "errors_", "LJavaUtilList;", .constantValue.asLong = 0, 0x2, -1, -1, 23, -1 },
+    { "errors_", "LJavaUtilMap;", .constantValue.asLong = 0, 0x2, -1, -1, 24, -1 },
   };
-  static const void *ptrTable[] = { "ZLNSString;", "LJavaLangThrowable;", "LNSString;", "LNSObject;", "(TT;)V", "LJavaUtilList;", "(Ljava/util/List<TT;>;)V", "setError", "Z", "setMessage", "()TT;", "setResult", "()Ljava/util/List<TT;>;", "setResults", "setCurrentUnixTime", "J", "setTotalCount", "I", "()Ljava/util/List<Ljava/lang/String;>;", "setErrors", "(Ljava/util/List<Ljava/lang/String;>;)V", "TT;", "Ljava/util/List<TT;>;", "Ljava/util/List<Ljava/lang/String;>;", "<T:Ljava/lang/Object;>Ljava/lang/Object;" };
-  static const J2ObjcClassInfo _AppBaseRestResult = { "RestResult", "br.com.mobilemind.j2objc.rest", ptrTable, methods, fields, 7, 0x1, 21, 7, -1, -1, -1, 24, -1 };
+  static const void *ptrTable[] = { "ZLNSString;", "LJavaLangThrowable;", "LNSString;", "LNSObject;", "(TT;)V", "LJavaUtilList;", "(Ljava/util/List<TT;>;)V", "setError", "Z", "setMessage", "()TT;", "setResult", "()Ljava/util/List<TT;>;", "setResults", "setCurrentUnixTime", "J", "setTotalCount", "I", "()Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;", "setErrors", "LJavaUtilMap;", "(Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;)V", "TT;", "Ljava/util/List<TT;>;", "Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;", "<T:Ljava/lang/Object;>Ljava/lang/Object;" };
+  static const J2ObjcClassInfo _AppBaseRestResult = { "RestResult", "br.com.mobilemind.j2objc.rest", ptrTable, methods, fields, 7, 0x1, 21, 7, -1, -1, -1, 25, -1 };
   return &_AppBaseRestResult;
 }
 
@@ -188,6 +198,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 
 void AppBaseRestResult_init(AppBaseRestResult *self) {
   NSObject_init(self);
+  self->errors_ = new_JavaUtilHashMap_init();
 }
 
 AppBaseRestResult *new_AppBaseRestResult_init() {
@@ -200,6 +211,7 @@ AppBaseRestResult *create_AppBaseRestResult_init() {
 
 void AppBaseRestResult_initWithBoolean_withNSString_(AppBaseRestResult *self, jboolean error, NSString *message) {
   NSObject_init(self);
+  self->errors_ = new_JavaUtilHashMap_init();
   self->error_ = error;
   self->message_ = message;
 }
@@ -214,6 +226,7 @@ AppBaseRestResult *create_AppBaseRestResult_initWithBoolean_withNSString_(jboole
 
 void AppBaseRestResult_initWithJavaLangThrowable_(AppBaseRestResult *self, JavaLangThrowable *ex) {
   NSObject_init(self);
+  self->errors_ = new_JavaUtilHashMap_init();
   self->error_ = true;
   self->message_ = [((JavaLangThrowable *) nil_chk(ex)) getMessage];
 }
@@ -228,6 +241,7 @@ AppBaseRestResult *create_AppBaseRestResult_initWithJavaLangThrowable_(JavaLangT
 
 void AppBaseRestResult_initWithNSString_(AppBaseRestResult *self, NSString *message) {
   NSObject_init(self);
+  self->errors_ = new_JavaUtilHashMap_init();
   self->message_ = message;
 }
 
@@ -241,6 +255,7 @@ AppBaseRestResult *create_AppBaseRestResult_initWithNSString_(NSString *message)
 
 void AppBaseRestResult_initWithId_(AppBaseRestResult *self, id result) {
   NSObject_init(self);
+  self->errors_ = new_JavaUtilHashMap_init();
   self->result_ = result;
 }
 
@@ -254,6 +269,7 @@ AppBaseRestResult *create_AppBaseRestResult_initWithId_(id result) {
 
 void AppBaseRestResult_initWithJavaUtilList_(AppBaseRestResult *self, id<JavaUtilList> results) {
   NSObject_init(self);
+  self->errors_ = new_JavaUtilHashMap_init();
   self->results_ = results;
 }
 

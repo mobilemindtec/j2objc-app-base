@@ -87,7 +87,7 @@ AppBaseNumberMask *create_AppBaseNumberMask_init() {
 NSString *AppBaseNumberMask_applyWithNSString_withNSString_(NSString *text, NSString *pattern) {
   AppBaseNumberMask_initialize();
   if (text == nil || pattern == nil) return nil;
-  NSString *numberPattern = @"/[0-9]/";
+  NSString *numberPattern = @"[0-9]+";
   text = AppBaseAppUtil_filterNumberWithNSString_(text);
   NSString *newText = @"";
   jint j = 0;
@@ -114,11 +114,11 @@ NSString *AppBaseNumberMask_applyWithNSString_withNSString_(NSString *text, NSSt
 NSString *AppBaseNumberMask_applyReverseWithNSString_withNSString_(NSString *text, NSString *pattern) {
   AppBaseNumberMask_initialize();
   if (text == nil || pattern == nil) return nil;
-  NSString *numberPattern = @"/[0-9]/";
+  NSString *numberPattern = @"[0-9]+";
   text = [((JavaLangStringBuilder *) nil_chk([new_JavaLangStringBuilder_initWithNSString_(text) reverse])) description];
   NSString *newText = @"";
   jint j = 0;
-  for (jint i = [pattern java_length]; i > 0; i--) {
+  for (jint i = [pattern java_length] - 1; i >= 0; i--) {
     JavaLangCharacter *m = JavaLangCharacter_valueOfWithChar_([pattern charAtWithInt:i]);
     if (j >= [((NSString *) nil_chk(text)) java_length]) {
       (void) JreStrAppendStrong(&newText, "$", [m description]);
@@ -168,7 +168,7 @@ NSString *AppBaseNumberMask_telefoneWithNSString_(NSString *text) {
   if ([((NSString *) nil_chk(text)) java_length] == 9) return AppBaseNumberMask_applyWithNSString_withNSString_(text, @"999.999.999");
   if ([text java_length] == 8) return AppBaseNumberMask_applyWithNSString_withNSString_(text, @"9999.9999");
   if ([text java_length] == 10) return AppBaseNumberMask_applyWithNSString_withNSString_(text, @"(99) 9999.9999");
-  if ([text java_length] == 11) return AppBaseNumberMask_applyWithNSString_withNSString_(text, @"(99) 999.999.999");
+  if ([text java_length] == 11) return AppBaseNumberMask_applyWithNSString_withNSString_(text, @"(99) 9 9999.9999");
   return nil;
 }
 

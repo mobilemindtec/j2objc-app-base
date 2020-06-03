@@ -765,9 +765,9 @@ IOSByteArray *AppBaseBase64_encodeBytesToBytesWithByteArray_withInt_withInt_with
   }
   else {
     jboolean breakLines = (options & AppBaseBase64_DO_BREAK_LINES) != 0;
-    jint encLen = (len / 3) * 4 + (len % 3 > 0 ? 4 : 0);
+    jint encLen = (JreIntDiv(len, 3)) * 4 + (JreIntMod(len, 3) > 0 ? 4 : 0);
     if (breakLines) {
-      encLen += encLen / AppBaseBase64_MAX_LINE_LENGTH;
+      encLen += JreIntDiv(encLen, AppBaseBase64_MAX_LINE_LENGTH);
     }
     IOSByteArray *outBuff = [IOSByteArray newArrayWithLength:encLen];
     jint d = 0;
@@ -855,7 +855,7 @@ IOSByteArray *AppBaseBase64_decodeWithByteArray_withInt_withInt_withInt_(IOSByte
     @throw new_JavaLangIllegalArgumentException_initWithNSString_(JreStrcat("$I", @"Base64-encoded string must have at least four characters, but length specified was ", len));
   }
   IOSByteArray *DECODABET = AppBaseBase64_getDecodabetWithInt_(options);
-  jint len34 = len * 3 / 4;
+  jint len34 = JreIntDiv(len * 3, 4);
   IOSByteArray *outBuff = [IOSByteArray newArrayWithLength:len34];
   jint outBuffPosn = 0;
   IOSByteArray *b4 = [IOSByteArray newArrayWithLength:4];
@@ -1171,7 +1171,7 @@ J2OBJC_NAME_MAPPING(AppBaseBase64, "br.com.mobilemind.j2objc.util", "AppBase")
   static const J2ObjcFieldInfo fields[] = {
     { "val$loader_", "LJavaLangClassLoader;", .constantValue.asLong = 0, 0x1012, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "LJavaIoInputStream;", "resolveClass", "LJavaIoObjectStreamClass;", "LJavaIoIOException;LJavaLangClassNotFoundException;", "(Ljava/io/ObjectStreamClass;)Ljava/lang/Class<*>;", "LAppBaseBase64;", "decodeToObjectWithNSString:withInt:withJavaLangClassLoader:" };
+  static const void *ptrTable[] = { "LJavaLangClassLoader;LJavaIoInputStream;", "resolveClass", "LJavaIoObjectStreamClass;", "LJavaIoIOException;LJavaLangClassNotFoundException;", "(Ljava/io/ObjectStreamClass;)Ljava/lang/Class<*>;", "LAppBaseBase64;", "decodeToObjectWithNSString:withInt:withJavaLangClassLoader:" };
   static const J2ObjcClassInfo _AppBaseBase64_1 = { "", "br.com.mobilemind.j2objc.util", ptrTable, methods, fields, 7, 0x8018, 2, 1, 5, -1, 6, -1, -1 };
   return &_AppBaseBase64_1;
 }

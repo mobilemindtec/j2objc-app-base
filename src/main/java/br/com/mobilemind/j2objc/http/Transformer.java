@@ -1,6 +1,7 @@
 package br.com.mobilemind.j2objc.http;
 
 import br.com.mobilemind.j2objc.rest.RestResult;
+import br.com.mobilemind.j2objc.shared.SharedFactory;
 import com.google.gson.*;
 
 
@@ -10,12 +11,21 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.logging.Logger;
+
 import com.google.gson.reflect.TypeToken;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Transformer {
 
-    public static String TIMESTAMP_FORMAT_JSON = "yyyy-MM-dd'T'HH:mm:ssXXX";
+    protected static final Logger logger = Logger.getLogger(Transformer.class.getName());
+
+    public static String GSON_TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ssXXX";
+    public static FieldNamingPolicy GSON_NAMING_CONVENTION = FieldNamingPolicy.UPPER_CAMEL_CASE;
     private Response response;
+    private Gson gson;
 
     public Transformer(){}
 
@@ -24,11 +34,27 @@ public class Transformer {
     }
 
     public Gson makeGson(){
-        return new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                .setDateFormat(TIMESTAMP_FORMAT_JSON)
+        if(this.gson == null)
+            this.gson = new GsonBuilder()
+                .setFieldNamingPolicy(GSON_NAMING_CONVENTION)
+                .setDateFormat(GSON_TIMESTAMP_FORMAT)
                 .create();
+
+        return this.gson;
     }
+
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
+
+    public static void setGsonTimestampFormat(String format){
+        GSON_TIMESTAMP_FORMAT = format;
+    }
+
+    public static void setGsonNamingConvention(FieldNamingPolicy gsonNamingConvention) {
+        GSON_NAMING_CONVENTION = gsonNamingConvention;
+    }
+
 
     public <T> List<T> list() throws IOException {
         Gson gson = this.makeGson();
@@ -84,6 +110,16 @@ public class Transformer {
         return parser.parse(reader).getAsJsonArray();
     }
 
+    public JSONObject toJSONObject() throws IOException, JSONException {
+        String reader = string();
+        return new JSONObject(reader);
+    }
+
+    public JSONArray toJSONArray() throws IOException, JSONException {
+        String reader = string();
+        return new JSONArray(reader);
+    }
+
     private Reader reader(){
         BufferedReader br = new BufferedReader(new InputStreamReader(
                 this.response.getEntity()));
@@ -97,9 +133,12 @@ public class Transformer {
         String output = null;
 
         try {
+
             while ((output = reader.readLine()) != null) {
                 content.append(output);
             }
+
+            logger.info("result content = " + content);
 
             return content.toString();
         }finally {
@@ -118,6 +157,8 @@ public class Transformer {
             while ((output = reader.readLine()) != null) {
                 content.append(output);
             }
+
+            logger.info("error content = " + content);
 
             return content.toString();
         }finally {

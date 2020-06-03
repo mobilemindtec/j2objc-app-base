@@ -16,6 +16,7 @@
 
 @class JavaLangThrowable;
 @protocol JavaUtilList;
+@protocol JavaUtilMap;
 
 @interface AppBaseRestResult : NSObject
 
@@ -36,7 +37,7 @@
 
 - (jlong)getCurrentUnixTime;
 
-- (id<JavaUtilList>)getErrors;
+- (id<JavaUtilMap>)getErrors;
 
 - (NSString *)getMessage;
 
@@ -54,7 +55,7 @@
 
 - (void)setErrorWithBoolean:(jboolean)error;
 
-- (void)setErrorsWithJavaUtilList:(id<JavaUtilList>)errors;
+- (void)setErrorsWithJavaUtilMap:(id<JavaUtilMap>)errors;
 
 - (void)setMessageWithNSString:(NSString *)message;
 

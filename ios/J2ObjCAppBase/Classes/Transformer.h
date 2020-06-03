@@ -15,19 +15,31 @@
 #include "J2ObjC_header.h"
 
 @class BrComMobilemindJ2objcHttpResponse;
+@class GsonFieldNamingPolicy;
 @class GsonGson;
 @class GsonJsonArray;
 @class GsonJsonObject;
 @class IOSClass;
+@class JavaUtilLoggingLogger;
+@class OrgJsonJSONArray;
+@class OrgJsonJSONObject;
 @protocol JavaLangReflectType;
 @protocol JavaUtilList;
 
 @interface BrComMobilemindJ2objcHttpTransformer : NSObject
-@property (copy, class) NSString *TIMESTAMP_FORMAT_JSON NS_SWIFT_NAME(TIMESTAMP_FORMAT_JSON);
+@property (readonly, class) JavaUtilLoggingLogger *logger NS_SWIFT_NAME(logger);
+@property (copy, class) NSString *GSON_TIMESTAMP_FORMAT NS_SWIFT_NAME(GSON_TIMESTAMP_FORMAT);
+@property (class) GsonFieldNamingPolicy *GSON_NAMING_CONVENTION NS_SWIFT_NAME(GSON_NAMING_CONVENTION);
 
-+ (NSString *)TIMESTAMP_FORMAT_JSON;
++ (JavaUtilLoggingLogger *)logger;
 
-+ (void)setTIMESTAMP_FORMAT_JSON:(NSString *)value;
++ (NSString *)GSON_TIMESTAMP_FORMAT;
+
++ (void)setGSON_TIMESTAMP_FORMAT:(NSString *)value;
+
++ (GsonFieldNamingPolicy *)GSON_NAMING_CONVENTION;
+
++ (void)setGSON_NAMING_CONVENTION:(GsonFieldNamingPolicy *)value;
 
 #pragma mark Public
 
@@ -67,25 +79,50 @@
 - (id)objectWithJavaLangReflectType:(id<JavaLangReflectType>)typeToken
                        withGsonGson:(GsonGson *)gson;
 
+- (void)setGsonWithGsonGson:(GsonGson *)gson;
+
++ (void)setGsonNamingConventionWithGsonFieldNamingPolicy:(GsonFieldNamingPolicy *)gsonNamingConvention;
+
++ (void)setGsonTimestampFormatWithNSString:(NSString *)format;
+
 - (void)setResponseWithBrComMobilemindJ2objcHttpResponse:(BrComMobilemindJ2objcHttpResponse *)response;
 
 - (NSString *)string;
 
+- (OrgJsonJSONArray *)toJSONArray;
+
+- (OrgJsonJSONObject *)toJSONObject;
+
 @end
 
-J2OBJC_EMPTY_STATIC_INIT(BrComMobilemindJ2objcHttpTransformer)
+J2OBJC_STATIC_INIT(BrComMobilemindJ2objcHttpTransformer)
 
-inline NSString *BrComMobilemindJ2objcHttpTransformer_get_TIMESTAMP_FORMAT_JSON(void);
-inline NSString *BrComMobilemindJ2objcHttpTransformer_set_TIMESTAMP_FORMAT_JSON(NSString *value);
+inline JavaUtilLoggingLogger *BrComMobilemindJ2objcHttpTransformer_get_logger(void);
 /*! INTERNAL ONLY - Use accessor function from above. */
-FOUNDATION_EXPORT NSString *BrComMobilemindJ2objcHttpTransformer_TIMESTAMP_FORMAT_JSON;
-J2OBJC_STATIC_FIELD_OBJ(BrComMobilemindJ2objcHttpTransformer, TIMESTAMP_FORMAT_JSON, NSString *)
+FOUNDATION_EXPORT JavaUtilLoggingLogger *BrComMobilemindJ2objcHttpTransformer_logger;
+J2OBJC_STATIC_FIELD_OBJ_FINAL(BrComMobilemindJ2objcHttpTransformer, logger, JavaUtilLoggingLogger *)
+
+inline NSString *BrComMobilemindJ2objcHttpTransformer_get_GSON_TIMESTAMP_FORMAT(void);
+inline NSString *BrComMobilemindJ2objcHttpTransformer_set_GSON_TIMESTAMP_FORMAT(NSString *value);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT NSString *BrComMobilemindJ2objcHttpTransformer_GSON_TIMESTAMP_FORMAT;
+J2OBJC_STATIC_FIELD_OBJ(BrComMobilemindJ2objcHttpTransformer, GSON_TIMESTAMP_FORMAT, NSString *)
+
+inline GsonFieldNamingPolicy *BrComMobilemindJ2objcHttpTransformer_get_GSON_NAMING_CONVENTION(void);
+inline GsonFieldNamingPolicy *BrComMobilemindJ2objcHttpTransformer_set_GSON_NAMING_CONVENTION(GsonFieldNamingPolicy *value);
+/*! INTERNAL ONLY - Use accessor function from above. */
+FOUNDATION_EXPORT GsonFieldNamingPolicy *BrComMobilemindJ2objcHttpTransformer_GSON_NAMING_CONVENTION;
+J2OBJC_STATIC_FIELD_OBJ(BrComMobilemindJ2objcHttpTransformer, GSON_NAMING_CONVENTION, GsonFieldNamingPolicy *)
 
 FOUNDATION_EXPORT void BrComMobilemindJ2objcHttpTransformer_init(BrComMobilemindJ2objcHttpTransformer *self);
 
 FOUNDATION_EXPORT BrComMobilemindJ2objcHttpTransformer *new_BrComMobilemindJ2objcHttpTransformer_init(void) NS_RETURNS_RETAINED;
 
 FOUNDATION_EXPORT BrComMobilemindJ2objcHttpTransformer *create_BrComMobilemindJ2objcHttpTransformer_init(void);
+
+FOUNDATION_EXPORT void BrComMobilemindJ2objcHttpTransformer_setGsonTimestampFormatWithNSString_(NSString *format);
+
+FOUNDATION_EXPORT void BrComMobilemindJ2objcHttpTransformer_setGsonNamingConventionWithGsonFieldNamingPolicy_(GsonFieldNamingPolicy *gsonNamingConvention);
 
 J2OBJC_TYPE_LITERAL_HEADER(BrComMobilemindJ2objcHttpTransformer)
 

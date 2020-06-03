@@ -3,6 +3,9 @@ package br.com.mobilemind.j2objc.http;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.annotation.Nonnull;
 import java.io.UnsupportedEncodingException;
@@ -94,7 +97,11 @@ public class Request {
 
     private boolean bodyIsJsonObject() { return this.body instanceof JsonObject; }
 
+    private boolean bodyIsJSONObject() { return this.body instanceof JSONObject; }
+
     private boolean bodyIsJsonArray() { return this.body instanceof JsonArray; }
+
+    private boolean bodyIsJSONArray() { return this.body instanceof JSONArray; }
 
     private boolean bodyIsString() { return this.body instanceof String; }
 

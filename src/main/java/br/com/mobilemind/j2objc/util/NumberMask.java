@@ -9,7 +9,7 @@ public class NumberMask {
         if(text == null || pattern == null)
             return  null;
 
-        String numberPattern = "/[0-9]/";
+        String numberPattern = "[0-9]+";
 
         text = AppUtil.filterNumber(text);
         String newText = "";
@@ -43,7 +43,7 @@ public class NumberMask {
         if(text == null || pattern == null)
             return  null;
 
-        String numberPattern = "/[0-9]/";
+        String numberPattern = "[0-9]+";
 
         text = new StringBuilder(text).reverse().toString();
 
@@ -51,7 +51,7 @@ public class NumberMask {
         String newText = "";
         int j = 0;
 
-        for(int i = pattern.length(); i > 0; i--    ){
+        for(int i = pattern.length()-1; i >= 0; i--  ){
             Character m = pattern.charAt(i);
 
             if(j >= text.length()){
@@ -123,7 +123,7 @@ public class NumberMask {
             return apply(text, "(99) 9999.9999");
 
 	    if(text.length() == 11)
-            return apply(text, "(99) 999.999.999");
+            return apply(text, "(99) 9 9999.9999");
 
         return null;
     }

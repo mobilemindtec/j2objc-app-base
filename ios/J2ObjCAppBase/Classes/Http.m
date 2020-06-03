@@ -12,6 +12,8 @@
 #include "Request.h"
 #include "Response.h"
 #include "Transformer.h"
+#include "java/io/ByteArrayInputStream.h"
+#include "java/io/ByteArrayOutputStream.h"
 #include "java/io/DataOutputStream.h"
 #include "java/io/InputStream.h"
 #include "java/io/OutputStream.h"
@@ -40,11 +42,15 @@
 
 - (JavaNetHttpURLConnection *)getHttpConnectionWithBrComMobilemindJ2objcHttpRequest:(BrComMobilemindJ2objcHttpRequest *)request;
 
+- (JavaIoInputStream *)cloneInputStreamWithJavaIoInputStream:(JavaIoInputStream *)inArg;
+
 @end
 
 J2OBJC_FIELD_SETTER(BrComMobilemindJ2objcHttpHttp, transformer_, BrComMobilemindJ2objcHttpTransformer *)
 
 __attribute__((unused)) static JavaNetHttpURLConnection *BrComMobilemindJ2objcHttpHttp_getHttpConnectionWithBrComMobilemindJ2objcHttpRequest_(BrComMobilemindJ2objcHttpHttp *self, BrComMobilemindJ2objcHttpRequest *request);
+
+__attribute__((unused)) static JavaIoInputStream *BrComMobilemindJ2objcHttpHttp_cloneInputStreamWithJavaIoInputStream_(BrComMobilemindJ2objcHttpHttp *self, JavaIoInputStream *inArg);
 
 __attribute__((unused)) static IOSObjectArray *BrComMobilemindJ2objcHttpHttp__Annotations$0(void);
 
@@ -105,8 +111,8 @@ J2OBJC_IGNORE_DESIGNATED_END
     [httpConnection connect];
     BrComMobilemindJ2objcHttpResponse *response = new_BrComMobilemindJ2objcHttpResponse_initWithInt_([httpConnection getResponseCode]);
     [((BrComMobilemindJ2objcHttpTransformer *) nil_chk(self->transformer_)) setResponseWithBrComMobilemindJ2objcHttpResponse:response];
-    [response setEntityWithJavaIoInputStream:[httpConnection getInputStream]];
-    [response setErrorWithJavaIoInputStream:[httpConnection getErrorStream]];
+    [response setEntityWithJavaIoInputStream:BrComMobilemindJ2objcHttpHttp_cloneInputStreamWithJavaIoInputStream_(self, [httpConnection getInputStream])];
+    [response setErrorWithJavaIoInputStream:BrComMobilemindJ2objcHttpHttp_cloneInputStreamWithJavaIoInputStream_(self, [httpConnection getErrorStream])];
     for (NSString * __strong fieldName in nil_chk([((id<JavaUtilMap>) nil_chk([httpConnection getHeaderFields])) keySet])) {
       id<JavaUtilList> values = [((id<JavaUtilMap>) nil_chk([httpConnection getHeaderFields])) getWithId:fieldName];
       if (![((id<JavaUtilList>) nil_chk(values)) isEmpty]) (void) [((id<JavaUtilMap>) nil_chk([response getHeaders])) putWithId:fieldName withId:[nil_chk([values getWithInt:0]) description]];
@@ -142,8 +148,8 @@ J2OBJC_IGNORE_DESIGNATED_END
     [httpConnection connect];
     BrComMobilemindJ2objcHttpResponse *response = new_BrComMobilemindJ2objcHttpResponse_initWithInt_([httpConnection getResponseCode]);
     [((BrComMobilemindJ2objcHttpTransformer *) nil_chk(self->transformer_)) setResponseWithBrComMobilemindJ2objcHttpResponse:response];
-    [response setEntityWithJavaIoInputStream:[httpConnection getInputStream]];
-    [response setErrorWithJavaIoInputStream:[httpConnection getErrorStream]];
+    [response setEntityWithJavaIoInputStream:BrComMobilemindJ2objcHttpHttp_cloneInputStreamWithJavaIoInputStream_(self, [httpConnection getInputStream])];
+    [response setErrorWithJavaIoInputStream:BrComMobilemindJ2objcHttpHttp_cloneInputStreamWithJavaIoInputStream_(self, [httpConnection getErrorStream])];
     for (NSString * __strong fieldName in nil_chk([((id<JavaUtilMap>) nil_chk([httpConnection getHeaderFields])) keySet])) {
       id<JavaUtilList> values = [((id<JavaUtilMap>) nil_chk([httpConnection getHeaderFields])) getWithId:fieldName];
       if (![((id<JavaUtilList>) nil_chk(values)) isEmpty]) (void) [((id<JavaUtilMap>) nil_chk([response getHeaders])) putWithId:fieldName withId:[nil_chk([values getWithInt:0]) description]];
@@ -179,8 +185,8 @@ J2OBJC_IGNORE_DESIGNATED_END
     [httpConnection connect];
     BrComMobilemindJ2objcHttpResponse *response = new_BrComMobilemindJ2objcHttpResponse_initWithInt_([httpConnection getResponseCode]);
     [((BrComMobilemindJ2objcHttpTransformer *) nil_chk(self->transformer_)) setResponseWithBrComMobilemindJ2objcHttpResponse:response];
-    [response setEntityWithJavaIoInputStream:[httpConnection getInputStream]];
-    [response setErrorWithJavaIoInputStream:[httpConnection getErrorStream]];
+    [response setEntityWithJavaIoInputStream:BrComMobilemindJ2objcHttpHttp_cloneInputStreamWithJavaIoInputStream_(self, [httpConnection getInputStream])];
+    [response setErrorWithJavaIoInputStream:BrComMobilemindJ2objcHttpHttp_cloneInputStreamWithJavaIoInputStream_(self, [httpConnection getErrorStream])];
     for (NSString * __strong fieldName in nil_chk([((id<JavaUtilMap>) nil_chk([httpConnection getHeaderFields])) keySet])) {
       id<JavaUtilList> values = [((id<JavaUtilMap>) nil_chk([httpConnection getHeaderFields])) getWithId:fieldName];
       if (![((id<JavaUtilList>) nil_chk(values)) isEmpty]) (void) [((id<JavaUtilMap>) nil_chk([response getHeaders])) putWithId:fieldName withId:[nil_chk([values getWithInt:0]) description]];
@@ -216,8 +222,8 @@ J2OBJC_IGNORE_DESIGNATED_END
     [httpConnection connect];
     BrComMobilemindJ2objcHttpResponse *response = new_BrComMobilemindJ2objcHttpResponse_initWithInt_([httpConnection getResponseCode]);
     [((BrComMobilemindJ2objcHttpTransformer *) nil_chk(self->transformer_)) setResponseWithBrComMobilemindJ2objcHttpResponse:response];
-    [response setEntityWithJavaIoInputStream:[httpConnection getInputStream]];
-    [response setErrorWithJavaIoInputStream:[httpConnection getErrorStream]];
+    [response setEntityWithJavaIoInputStream:BrComMobilemindJ2objcHttpHttp_cloneInputStreamWithJavaIoInputStream_(self, [httpConnection getInputStream])];
+    [response setErrorWithJavaIoInputStream:BrComMobilemindJ2objcHttpHttp_cloneInputStreamWithJavaIoInputStream_(self, [httpConnection getErrorStream])];
     for (NSString * __strong fieldName in nil_chk([((id<JavaUtilMap>) nil_chk([httpConnection getHeaderFields])) keySet])) {
       id<JavaUtilList> values = [((id<JavaUtilMap>) nil_chk([httpConnection getHeaderFields])) getWithId:fieldName];
       if (![((id<JavaUtilList>) nil_chk(values)) isEmpty]) (void) [((id<JavaUtilMap>) nil_chk([response getHeaders])) putWithId:fieldName withId:[nil_chk([values getWithInt:0]) description]];
@@ -237,6 +243,10 @@ J2OBJC_IGNORE_DESIGNATED_END
   return BrComMobilemindJ2objcHttpHttp_getHttpConnectionWithBrComMobilemindJ2objcHttpRequest_(self, request);
 }
 
+- (JavaIoInputStream *)cloneInputStreamWithJavaIoInputStream:(JavaIoInputStream *)inArg {
+  return BrComMobilemindJ2objcHttpHttp_cloneInputStreamWithJavaIoInputStream_(self, inArg);
+}
+
 + (const J2ObjcClassInfo *)__metadata {
   static J2ObjcMethodInfo methods[] = {
     { NULL, NULL, 0x1, -1, 0, -1, -1, -1, -1 },
@@ -249,6 +259,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, "LBrComMobilemindJ2objcHttpResponse;", 0x1, 13, 10, -1, 11, -1, 14 },
     { NULL, "LBrComMobilemindJ2objcHttpResponse;", 0x1, 15, 10, -1, 11, -1, 16 },
     { NULL, "LJavaNetHttpURLConnection;", 0x2, 17, 18, 19, -1, -1, 20 },
+    { NULL, "LJavaIoInputStream;", 0x2, 21, 22, 19, -1, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -263,14 +274,15 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[7].selector = @selector(putWithNSString:withId:withJavaUtilMap:);
   methods[8].selector = @selector(delete__WithNSString:withId:withJavaUtilMap:);
   methods[9].selector = @selector(getHttpConnectionWithBrComMobilemindJ2objcHttpRequest:);
+  methods[10].selector = @selector(cloneInputStreamWithJavaIoInputStream:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "logger", "LJavaUtilLoggingLogger;", .constantValue.asLong = 0, 0x1c, -1, 21, -1, -1 },
+    { "logger", "LJavaUtilLoggingLogger;", .constantValue.asLong = 0, 0x1c, -1, 23, -1, -1 },
     { "timeout_", "I", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "transformer_", "LBrComMobilemindJ2objcHttpTransformer;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "ILBrComMobilemindJ2objcHttpTransformer;", "LBrComMobilemindJ2objcHttpTransformer;", "I", "get", "LNSString;", (void *)&BrComMobilemindJ2objcHttpHttp__Annotations$0, "LNSString;LJavaUtilMap;", "(Ljava/lang/String;Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;)Lbr/com/mobilemind/j2objc/http/Response;", (void *)&BrComMobilemindJ2objcHttpHttp__Annotations$1, "post", "LNSString;LNSObject;LJavaUtilMap;", "(Ljava/lang/String;Ljava/lang/Object;Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;)Lbr/com/mobilemind/j2objc/http/Response;", (void *)&BrComMobilemindJ2objcHttpHttp__Annotations$2, "put", (void *)&BrComMobilemindJ2objcHttpHttp__Annotations$3, "delete", (void *)&BrComMobilemindJ2objcHttpHttp__Annotations$4, "getHttpConnection", "LBrComMobilemindJ2objcHttpRequest;", "LJavaIoIOException;", (void *)&BrComMobilemindJ2objcHttpHttp__Annotations$5, &BrComMobilemindJ2objcHttpHttp_logger };
-  static const J2ObjcClassInfo _BrComMobilemindJ2objcHttpHttp = { "Http", "br.com.mobilemind.j2objc.http", ptrTable, methods, fields, 7, 0x1, 10, 3, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "ILBrComMobilemindJ2objcHttpTransformer;", "LBrComMobilemindJ2objcHttpTransformer;", "I", "get", "LNSString;", (void *)&BrComMobilemindJ2objcHttpHttp__Annotations$0, "LNSString;LJavaUtilMap;", "(Ljava/lang/String;Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;)Lbr/com/mobilemind/j2objc/http/Response;", (void *)&BrComMobilemindJ2objcHttpHttp__Annotations$1, "post", "LNSString;LNSObject;LJavaUtilMap;", "(Ljava/lang/String;Ljava/lang/Object;Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;)Lbr/com/mobilemind/j2objc/http/Response;", (void *)&BrComMobilemindJ2objcHttpHttp__Annotations$2, "put", (void *)&BrComMobilemindJ2objcHttpHttp__Annotations$3, "delete", (void *)&BrComMobilemindJ2objcHttpHttp__Annotations$4, "getHttpConnection", "LBrComMobilemindJ2objcHttpRequest;", "LJavaIoIOException;", (void *)&BrComMobilemindJ2objcHttpHttp__Annotations$5, "cloneInputStream", "LJavaIoInputStream;", &BrComMobilemindJ2objcHttpHttp_logger };
+  static const J2ObjcClassInfo _BrComMobilemindJ2objcHttpHttp = { "Http", "br.com.mobilemind.j2objc.http", ptrTable, methods, fields, 7, 0x1, 11, 3, -1, -1, -1, -1, -1 };
   return &_BrComMobilemindJ2objcHttpHttp;
 }
 
@@ -347,6 +359,18 @@ JavaNetHttpURLConnection *BrComMobilemindJ2objcHttpHttp_getHttpConnectionWithBrC
   [conn setReadTimeoutWithInt:self->timeout_];
   [conn setAllowUserInteractionWithBoolean:false];
   return conn;
+}
+
+JavaIoInputStream *BrComMobilemindJ2objcHttpHttp_cloneInputStreamWithJavaIoInputStream_(BrComMobilemindJ2objcHttpHttp *self, JavaIoInputStream *inArg) {
+  if (inArg == nil) return nil;
+  JavaIoByteArrayOutputStream *baos = new_JavaIoByteArrayOutputStream_init();
+  IOSByteArray *buffer = [IOSByteArray newArrayWithLength:1024];
+  jint len;
+  while ((len = [inArg readWithByteArray:buffer]) > -1) {
+    [baos writeWithByteArray:buffer withInt:0 withInt:len];
+  }
+  [baos flush];
+  return new_JavaIoByteArrayInputStream_initWithByteArray_([baos toByteArray]);
 }
 
 IOSObjectArray *BrComMobilemindJ2objcHttpHttp__Annotations$0() {

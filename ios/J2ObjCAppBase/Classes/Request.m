@@ -19,6 +19,8 @@
 #include "java/util/Set.h"
 #include "javax/annotation/Nonnull.h"
 #include "javax/annotation/meta/When.h"
+#include "org/json/JSONArray.h"
+#include "org/json/JSONObject.h"
 
 @interface BrComMobilemindJ2objcHttpRequest () {
  @public
@@ -31,7 +33,11 @@
 
 - (jboolean)bodyIsJsonObject;
 
+- (jboolean)bodyIsJSONObject;
+
 - (jboolean)bodyIsJsonArray;
+
+- (jboolean)bodyIsJSONArray;
 
 - (jboolean)bodyIsString;
 
@@ -49,7 +55,11 @@ __attribute__((unused)) static jboolean BrComMobilemindJ2objcHttpRequest_bodyIsM
 
 __attribute__((unused)) static jboolean BrComMobilemindJ2objcHttpRequest_bodyIsJsonObject(BrComMobilemindJ2objcHttpRequest *self);
 
+__attribute__((unused)) static jboolean BrComMobilemindJ2objcHttpRequest_bodyIsJSONObject(BrComMobilemindJ2objcHttpRequest *self);
+
 __attribute__((unused)) static jboolean BrComMobilemindJ2objcHttpRequest_bodyIsJsonArray(BrComMobilemindJ2objcHttpRequest *self);
+
+__attribute__((unused)) static jboolean BrComMobilemindJ2objcHttpRequest_bodyIsJSONArray(BrComMobilemindJ2objcHttpRequest *self);
 
 __attribute__((unused)) static jboolean BrComMobilemindJ2objcHttpRequest_bodyIsString(BrComMobilemindJ2objcHttpRequest *self);
 
@@ -160,8 +170,16 @@ NSString *BrComMobilemindJ2objcHttpRequest_ACCEPT = @"application/json";
   return BrComMobilemindJ2objcHttpRequest_bodyIsJsonObject(self);
 }
 
+- (jboolean)bodyIsJSONObject {
+  return BrComMobilemindJ2objcHttpRequest_bodyIsJSONObject(self);
+}
+
 - (jboolean)bodyIsJsonArray {
   return BrComMobilemindJ2objcHttpRequest_bodyIsJsonArray(self);
+}
+
+- (jboolean)bodyIsJSONArray {
+  return BrComMobilemindJ2objcHttpRequest_bodyIsJSONArray(self);
 }
 
 - (jboolean)bodyIsString {
@@ -192,6 +210,8 @@ NSString *BrComMobilemindJ2objcHttpRequest_ACCEPT = @"application/json";
     { NULL, "Z", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "Z", 0x2, -1, -1, -1, -1, -1, -1 },
+    { NULL, "Z", 0x2, -1, -1, -1, -1, -1, -1 },
+    { NULL, "Z", 0x2, -1, -1, -1, -1, -1, -1 },
     { NULL, "LNSString;", 0x2, 12, 13, 11, -1, -1, -1 },
     { NULL, "LNSString;", 0x2, 14, 15, 11, -1, -1, -1 },
   };
@@ -210,10 +230,12 @@ NSString *BrComMobilemindJ2objcHttpRequest_ACCEPT = @"application/json";
   methods[9].selector = @selector(isJsonContentType);
   methods[10].selector = @selector(bodyIsMap);
   methods[11].selector = @selector(bodyIsJsonObject);
-  methods[12].selector = @selector(bodyIsJsonArray);
-  methods[13].selector = @selector(bodyIsString);
-  methods[14].selector = @selector(mapToFormWithJavaUtilMap:);
-  methods[15].selector = @selector(jsonToFormWithGsonJsonObject:);
+  methods[12].selector = @selector(bodyIsJSONObject);
+  methods[13].selector = @selector(bodyIsJsonArray);
+  methods[14].selector = @selector(bodyIsJSONArray);
+  methods[15].selector = @selector(bodyIsString);
+  methods[16].selector = @selector(mapToFormWithJavaUtilMap:);
+  methods[17].selector = @selector(jsonToFormWithGsonJsonObject:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
     { "CONTENT_TYPE_HEADER", "LNSString;", .constantValue.asLong = 0, 0x19, -1, 16, -1, -1 },
@@ -226,7 +248,7 @@ NSString *BrComMobilemindJ2objcHttpRequest_ACCEPT = @"application/json";
     { "body_", "LNSObject;", .constantValue.asLong = 0, 0x12, -1, -1, -1, -1 },
   };
   static const void *ptrTable[] = { "LNSString;LNSObject;LJavaUtilMap;", "(Ljava/lang/String;Ljava/lang/Object;Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;)V", (void *)&BrComMobilemindJ2objcHttpRequest__Annotations$0, "LNSString;LNSObject;", (void *)&BrComMobilemindJ2objcHttpRequest__Annotations$1, "LNSString;", (void *)&BrComMobilemindJ2objcHttpRequest__Annotations$2, "LNSString;LJavaUtilMap;", "(Ljava/lang/String;Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;)V", (void *)&BrComMobilemindJ2objcHttpRequest__Annotations$3, "()Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;", "LJavaIoUnsupportedEncodingException;", "mapToForm", "LJavaUtilMap;", "jsonToForm", "LGsonJsonObject;", &BrComMobilemindJ2objcHttpRequest_CONTENT_TYPE_HEADER, &BrComMobilemindJ2objcHttpRequest_CONTENT_TYPE_JSON, &BrComMobilemindJ2objcHttpRequest_CONTENT_TYPE_FORM, &BrComMobilemindJ2objcHttpRequest_ACCEPT_HEADER, &BrComMobilemindJ2objcHttpRequest_ACCEPT, "Ljava/util/Map<Ljava/lang/String;Ljava/lang/String;>;" };
-  static const J2ObjcClassInfo _BrComMobilemindJ2objcHttpRequest = { "Request", "br.com.mobilemind.j2objc.http", ptrTable, methods, fields, 7, 0x1, 16, 8, -1, -1, -1, -1, -1 };
+  static const J2ObjcClassInfo _BrComMobilemindJ2objcHttpRequest = { "Request", "br.com.mobilemind.j2objc.http", ptrTable, methods, fields, 7, 0x1, 18, 8, -1, -1, -1, -1, -1 };
   return &_BrComMobilemindJ2objcHttpRequest;
 }
 
@@ -291,8 +313,16 @@ jboolean BrComMobilemindJ2objcHttpRequest_bodyIsJsonObject(BrComMobilemindJ2objc
   return [self->body_ isKindOfClass:[GsonJsonObject class]];
 }
 
+jboolean BrComMobilemindJ2objcHttpRequest_bodyIsJSONObject(BrComMobilemindJ2objcHttpRequest *self) {
+  return [self->body_ isKindOfClass:[OrgJsonJSONObject class]];
+}
+
 jboolean BrComMobilemindJ2objcHttpRequest_bodyIsJsonArray(BrComMobilemindJ2objcHttpRequest *self) {
   return [self->body_ isKindOfClass:[GsonJsonArray class]];
+}
+
+jboolean BrComMobilemindJ2objcHttpRequest_bodyIsJSONArray(BrComMobilemindJ2objcHttpRequest *self) {
+  return [self->body_ isKindOfClass:[OrgJsonJSONArray class]];
 }
 
 jboolean BrComMobilemindJ2objcHttpRequest_bodyIsString(BrComMobilemindJ2objcHttpRequest *self) {

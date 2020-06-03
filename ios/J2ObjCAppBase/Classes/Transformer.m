@@ -22,10 +22,14 @@
 #include "java/lang/StringBuilder.h"
 #include "java/lang/reflect/Type.h"
 #include "java/util/List.h"
+#include "java/util/logging/Logger.h"
+#include "org/json/JSONArray.h"
+#include "org/json/JSONObject.h"
 
 @interface BrComMobilemindJ2objcHttpTransformer () {
  @public
   BrComMobilemindJ2objcHttpResponse *response_;
+  GsonGson *gson_;
 }
 
 - (JavaIoReader *)reader;
@@ -33,6 +37,7 @@
 @end
 
 J2OBJC_FIELD_SETTER(BrComMobilemindJ2objcHttpTransformer, response_, BrComMobilemindJ2objcHttpResponse *)
+J2OBJC_FIELD_SETTER(BrComMobilemindJ2objcHttpTransformer, gson_, GsonGson *)
 
 __attribute__((unused)) static JavaIoReader *BrComMobilemindJ2objcHttpTransformer_reader(BrComMobilemindJ2objcHttpTransformer *self);
 
@@ -64,16 +69,32 @@ __attribute__((unused)) static BrComMobilemindJ2objcHttpTransformer_2 *new_BrCom
 
 __attribute__((unused)) static BrComMobilemindJ2objcHttpTransformer_2 *create_BrComMobilemindJ2objcHttpTransformer_2_init(void);
 
-NSString *BrComMobilemindJ2objcHttpTransformer_TIMESTAMP_FORMAT_JSON = @"yyyy-MM-dd'T'HH:mm:ssXXX";
+J2OBJC_INITIALIZED_DEFN(BrComMobilemindJ2objcHttpTransformer)
+
+JavaUtilLoggingLogger *BrComMobilemindJ2objcHttpTransformer_logger;
+NSString *BrComMobilemindJ2objcHttpTransformer_GSON_TIMESTAMP_FORMAT = @"yyyy-MM-dd'T'HH:mm:ssXXX";
+GsonFieldNamingPolicy *BrComMobilemindJ2objcHttpTransformer_GSON_NAMING_CONVENTION;
 
 @implementation BrComMobilemindJ2objcHttpTransformer
 
-+ (NSString *)TIMESTAMP_FORMAT_JSON {
-  return BrComMobilemindJ2objcHttpTransformer_TIMESTAMP_FORMAT_JSON;
++ (JavaUtilLoggingLogger *)logger {
+  return BrComMobilemindJ2objcHttpTransformer_logger;
 }
 
-+ (void)setTIMESTAMP_FORMAT_JSON:(NSString *)value {
-  BrComMobilemindJ2objcHttpTransformer_TIMESTAMP_FORMAT_JSON = value;
++ (NSString *)GSON_TIMESTAMP_FORMAT {
+  return BrComMobilemindJ2objcHttpTransformer_GSON_TIMESTAMP_FORMAT;
+}
+
++ (void)setGSON_TIMESTAMP_FORMAT:(NSString *)value {
+  BrComMobilemindJ2objcHttpTransformer_GSON_TIMESTAMP_FORMAT = value;
+}
+
++ (GsonFieldNamingPolicy *)GSON_NAMING_CONVENTION {
+  return BrComMobilemindJ2objcHttpTransformer_GSON_NAMING_CONVENTION;
+}
+
++ (void)setGSON_NAMING_CONVENTION:(GsonFieldNamingPolicy *)value {
+  BrComMobilemindJ2objcHttpTransformer_GSON_NAMING_CONVENTION = value;
 }
 
 J2OBJC_IGNORE_DESIGNATED_BEGIN
@@ -88,7 +109,20 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (GsonGson *)makeGson {
-  return [((GsonGsonBuilder *) nil_chk([((GsonGsonBuilder *) nil_chk([new_GsonGsonBuilder_init() setFieldNamingPolicyWithGsonFieldNamingPolicy:JreLoadEnum(GsonFieldNamingPolicy, UPPER_CAMEL_CASE)])) setDateFormatWithNSString:BrComMobilemindJ2objcHttpTransformer_TIMESTAMP_FORMAT_JSON])) create];
+  if (self->gson_ == nil) self->gson_ = [((GsonGsonBuilder *) nil_chk([((GsonGsonBuilder *) nil_chk([new_GsonGsonBuilder_init() setFieldNamingPolicyWithGsonFieldNamingPolicy:BrComMobilemindJ2objcHttpTransformer_GSON_NAMING_CONVENTION])) setDateFormatWithNSString:BrComMobilemindJ2objcHttpTransformer_GSON_TIMESTAMP_FORMAT])) create];
+  return self->gson_;
+}
+
+- (void)setGsonWithGsonGson:(GsonGson *)gson {
+  self->gson_ = gson;
+}
+
++ (void)setGsonTimestampFormatWithNSString:(NSString *)format {
+  BrComMobilemindJ2objcHttpTransformer_setGsonTimestampFormatWithNSString_(format);
+}
+
++ (void)setGsonNamingConventionWithGsonFieldNamingPolicy:(GsonFieldNamingPolicy *)gsonNamingConvention {
+  BrComMobilemindJ2objcHttpTransformer_setGsonNamingConventionWithGsonFieldNamingPolicy_(gsonNamingConvention);
 }
 
 - (id<JavaUtilList>)list {
@@ -148,6 +182,16 @@ J2OBJC_IGNORE_DESIGNATED_END
   return [((GsonJsonElement *) nil_chk([parser parseWithNSString:reader])) getAsJsonArray];
 }
 
+- (OrgJsonJSONObject *)toJSONObject {
+  NSString *reader = [self string];
+  return new_OrgJsonJSONObject_initWithNSString_(reader);
+}
+
+- (OrgJsonJSONArray *)toJSONArray {
+  NSString *reader = [self string];
+  return new_OrgJsonJSONArray_initWithNSString_(reader);
+}
+
 - (JavaIoReader *)reader {
   return BrComMobilemindJ2objcHttpTransformer_reader(self);
 }
@@ -160,6 +204,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     while ((output = [((JavaIoBufferedReader *) nil_chk(reader)) readLine]) != nil) {
       (void) [content appendWithNSString:output];
     }
+    [((JavaUtilLoggingLogger *) nil_chk(BrComMobilemindJ2objcHttpTransformer_logger)) infoWithNSString:JreStrcat("$@", @"result content = ", content)];
     return [content description];
   }
   @finally {
@@ -175,6 +220,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     while ((output = [reader readLine]) != nil) {
       (void) [content appendWithNSString:output];
     }
+    [((JavaUtilLoggingLogger *) nil_chk(BrComMobilemindJ2objcHttpTransformer_logger)) infoWithNSString:JreStrcat("$@", @"error content = ", content)];
     return [content description];
   }
   @finally {
@@ -202,22 +248,27 @@ J2OBJC_IGNORE_DESIGNATED_END
     { NULL, NULL, 0x1, -1, -1, -1, -1, -1, -1 },
     { NULL, "V", 0x1, 0, 1, -1, -1, -1, -1 },
     { NULL, "LGsonGson;", 0x1, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LJavaUtilList;", 0x1, -1, -1, 2, 3, -1, -1 },
-    { NULL, "LJavaUtilList;", 0x1, 4, 5, 2, 6, -1, -1 },
-    { NULL, "LJavaUtilList;", 0x1, 4, 7, 2, 8, -1, -1 },
-    { NULL, "LNSObject;", 0x1, -1, -1, 2, 9, -1, -1 },
-    { NULL, "LNSObject;", 0x1, 10, 11, 2, 12, -1, -1 },
-    { NULL, "LNSObject;", 0x1, 10, 13, 2, 14, -1, -1 },
-    { NULL, "LNSObject;", 0x1, 10, 5, 2, 15, -1, -1 },
-    { NULL, "LNSObject;", 0x1, 10, 7, 2, 16, -1, -1 },
-    { NULL, "LGsonJsonObject;", 0x1, -1, -1, 2, -1, -1, -1 },
-    { NULL, "LGsonJsonArray;", 0x1, -1, -1, 2, -1, -1, -1 },
+    { NULL, "V", 0x1, 2, 3, -1, -1, -1, -1 },
+    { NULL, "V", 0x9, 4, 5, -1, -1, -1, -1 },
+    { NULL, "V", 0x9, 6, 7, -1, -1, -1, -1 },
+    { NULL, "LJavaUtilList;", 0x1, -1, -1, 8, 9, -1, -1 },
+    { NULL, "LJavaUtilList;", 0x1, 10, 11, 8, 12, -1, -1 },
+    { NULL, "LJavaUtilList;", 0x1, 10, 13, 8, 14, -1, -1 },
+    { NULL, "LNSObject;", 0x1, -1, -1, 8, 15, -1, -1 },
+    { NULL, "LNSObject;", 0x1, 16, 17, 8, 18, -1, -1 },
+    { NULL, "LNSObject;", 0x1, 16, 19, 8, 20, -1, -1 },
+    { NULL, "LNSObject;", 0x1, 16, 11, 8, 21, -1, -1 },
+    { NULL, "LNSObject;", 0x1, 16, 13, 8, 22, -1, -1 },
+    { NULL, "LGsonJsonObject;", 0x1, -1, -1, 8, -1, -1, -1 },
+    { NULL, "LGsonJsonArray;", 0x1, -1, -1, 8, -1, -1, -1 },
+    { NULL, "LOrgJsonJSONObject;", 0x1, -1, -1, 23, -1, -1, -1 },
+    { NULL, "LOrgJsonJSONArray;", 0x1, -1, -1, 23, -1, -1, -1 },
     { NULL, "LJavaIoReader;", 0x2, -1, -1, -1, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, -1, -1, 2, -1, -1, -1 },
-    { NULL, "LNSString;", 0x1, -1, -1, 2, -1, -1, -1 },
-    { NULL, "LGsonJsonObject;", 0x1, -1, -1, 2, -1, -1, -1 },
-    { NULL, "LNSObject;", 0x1, 17, 11, 2, 12, -1, -1 },
-    { NULL, "LNSObject;", 0x1, 17, 13, 2, 14, -1, -1 },
+    { NULL, "LNSString;", 0x1, -1, -1, 8, -1, -1, -1 },
+    { NULL, "LNSString;", 0x1, -1, -1, 8, -1, -1, -1 },
+    { NULL, "LGsonJsonObject;", 0x1, -1, -1, 8, -1, -1, -1 },
+    { NULL, "LNSObject;", 0x1, 24, 17, 8, 18, -1, -1 },
+    { NULL, "LNSObject;", 0x1, 24, 19, 8, 20, -1, -1 },
   };
   #pragma clang diagnostic push
   #pragma clang diagnostic ignored "-Wobjc-multiple-method-names"
@@ -225,30 +276,46 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[0].selector = @selector(init);
   methods[1].selector = @selector(setResponseWithBrComMobilemindJ2objcHttpResponse:);
   methods[2].selector = @selector(makeGson);
-  methods[3].selector = @selector(list);
-  methods[4].selector = @selector(listWithJavaLangReflectType:);
-  methods[5].selector = @selector(listWithJavaLangReflectType:withGsonGson:);
-  methods[6].selector = @selector(object);
-  methods[7].selector = @selector(objectWithIOSClass:);
-  methods[8].selector = @selector(objectWithIOSClass:withGsonGson:);
-  methods[9].selector = @selector(objectWithJavaLangReflectType:);
-  methods[10].selector = @selector(objectWithJavaLangReflectType:withGsonGson:);
-  methods[11].selector = @selector(json);
-  methods[12].selector = @selector(jsonArray);
-  methods[13].selector = @selector(reader);
-  methods[14].selector = @selector(string);
-  methods[15].selector = @selector(errorString);
-  methods[16].selector = @selector(errorJson);
-  methods[17].selector = @selector(errorObjectWithIOSClass:);
-  methods[18].selector = @selector(errorObjectWithIOSClass:withGsonGson:);
+  methods[3].selector = @selector(setGsonWithGsonGson:);
+  methods[4].selector = @selector(setGsonTimestampFormatWithNSString:);
+  methods[5].selector = @selector(setGsonNamingConventionWithGsonFieldNamingPolicy:);
+  methods[6].selector = @selector(list);
+  methods[7].selector = @selector(listWithJavaLangReflectType:);
+  methods[8].selector = @selector(listWithJavaLangReflectType:withGsonGson:);
+  methods[9].selector = @selector(object);
+  methods[10].selector = @selector(objectWithIOSClass:);
+  methods[11].selector = @selector(objectWithIOSClass:withGsonGson:);
+  methods[12].selector = @selector(objectWithJavaLangReflectType:);
+  methods[13].selector = @selector(objectWithJavaLangReflectType:withGsonGson:);
+  methods[14].selector = @selector(json);
+  methods[15].selector = @selector(jsonArray);
+  methods[16].selector = @selector(toJSONObject);
+  methods[17].selector = @selector(toJSONArray);
+  methods[18].selector = @selector(reader);
+  methods[19].selector = @selector(string);
+  methods[20].selector = @selector(errorString);
+  methods[21].selector = @selector(errorJson);
+  methods[22].selector = @selector(errorObjectWithIOSClass:);
+  methods[23].selector = @selector(errorObjectWithIOSClass:withGsonGson:);
   #pragma clang diagnostic pop
   static const J2ObjcFieldInfo fields[] = {
-    { "TIMESTAMP_FORMAT_JSON", "LNSString;", .constantValue.asLong = 0, 0x9, -1, 18, -1, -1 },
+    { "logger", "LJavaUtilLoggingLogger;", .constantValue.asLong = 0, 0x1c, -1, 25, -1, -1 },
+    { "GSON_TIMESTAMP_FORMAT", "LNSString;", .constantValue.asLong = 0, 0x9, -1, 26, -1, -1 },
+    { "GSON_NAMING_CONVENTION", "LGsonFieldNamingPolicy;", .constantValue.asLong = 0, 0x9, -1, 27, -1, -1 },
     { "response_", "LBrComMobilemindJ2objcHttpResponse;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
+    { "gson_", "LGsonGson;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "setResponse", "LBrComMobilemindJ2objcHttpResponse;", "LJavaIoIOException;", "<T:Ljava/lang/Object;>()Ljava/util/List<TT;>;", "list", "LJavaLangReflectType;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;)Ljava/util/List<TT;>;", "LJavaLangReflectType;LGsonGson;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;Lcom/google/gson/Gson;)Ljava/util/List<TT;>;", "<T:Ljava/lang/Object;>()TT;", "object", "LIOSClass;", "<T:Ljava/lang/Object;>(Ljava/lang/Class<TT;>;)TT;", "LIOSClass;LGsonGson;", "<T:Ljava/lang/Object;>(Ljava/lang/Class<TT;>;Lcom/google/gson/Gson;)TT;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;)TT;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;Lcom/google/gson/Gson;)TT;", "errorObject", &BrComMobilemindJ2objcHttpTransformer_TIMESTAMP_FORMAT_JSON };
-  static const J2ObjcClassInfo _BrComMobilemindJ2objcHttpTransformer = { "Transformer", "br.com.mobilemind.j2objc.http", ptrTable, methods, fields, 7, 0x1, 19, 2, -1, -1, -1, -1, -1 };
+  static const void *ptrTable[] = { "setResponse", "LBrComMobilemindJ2objcHttpResponse;", "setGson", "LGsonGson;", "setGsonTimestampFormat", "LNSString;", "setGsonNamingConvention", "LGsonFieldNamingPolicy;", "LJavaIoIOException;", "<T:Ljava/lang/Object;>()Ljava/util/List<TT;>;", "list", "LJavaLangReflectType;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;)Ljava/util/List<TT;>;", "LJavaLangReflectType;LGsonGson;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;Lcom/google/gson/Gson;)Ljava/util/List<TT;>;", "<T:Ljava/lang/Object;>()TT;", "object", "LIOSClass;", "<T:Ljava/lang/Object;>(Ljava/lang/Class<TT;>;)TT;", "LIOSClass;LGsonGson;", "<T:Ljava/lang/Object;>(Ljava/lang/Class<TT;>;Lcom/google/gson/Gson;)TT;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;)TT;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;Lcom/google/gson/Gson;)TT;", "LJavaIoIOException;LOrgJsonJSONException;", "errorObject", &BrComMobilemindJ2objcHttpTransformer_logger, &BrComMobilemindJ2objcHttpTransformer_GSON_TIMESTAMP_FORMAT, &BrComMobilemindJ2objcHttpTransformer_GSON_NAMING_CONVENTION };
+  static const J2ObjcClassInfo _BrComMobilemindJ2objcHttpTransformer = { "Transformer", "br.com.mobilemind.j2objc.http", ptrTable, methods, fields, 7, 0x1, 24, 5, -1, -1, -1, -1, -1 };
   return &_BrComMobilemindJ2objcHttpTransformer;
+}
+
++ (void)initialize {
+  if (self == [BrComMobilemindJ2objcHttpTransformer class]) {
+    BrComMobilemindJ2objcHttpTransformer_logger = JavaUtilLoggingLogger_getLoggerWithNSString_([BrComMobilemindJ2objcHttpTransformer_class_() getName]);
+    BrComMobilemindJ2objcHttpTransformer_GSON_NAMING_CONVENTION = JreLoadEnum(GsonFieldNamingPolicy, UPPER_CAMEL_CASE);
+    J2OBJC_SET_INITIALIZED(BrComMobilemindJ2objcHttpTransformer)
+  }
 }
 
 @end
@@ -263,6 +330,16 @@ BrComMobilemindJ2objcHttpTransformer *new_BrComMobilemindJ2objcHttpTransformer_i
 
 BrComMobilemindJ2objcHttpTransformer *create_BrComMobilemindJ2objcHttpTransformer_init() {
   J2OBJC_CREATE_IMPL(BrComMobilemindJ2objcHttpTransformer, init)
+}
+
+void BrComMobilemindJ2objcHttpTransformer_setGsonTimestampFormatWithNSString_(NSString *format) {
+  BrComMobilemindJ2objcHttpTransformer_initialize();
+  BrComMobilemindJ2objcHttpTransformer_GSON_TIMESTAMP_FORMAT = format;
+}
+
+void BrComMobilemindJ2objcHttpTransformer_setGsonNamingConventionWithGsonFieldNamingPolicy_(GsonFieldNamingPolicy *gsonNamingConvention) {
+  BrComMobilemindJ2objcHttpTransformer_initialize();
+  BrComMobilemindJ2objcHttpTransformer_GSON_NAMING_CONVENTION = gsonNamingConvention;
 }
 
 JavaIoReader *BrComMobilemindJ2objcHttpTransformer_reader(BrComMobilemindJ2objcHttpTransformer *self) {
@@ -291,7 +368,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[0].selector = @selector(init);
   #pragma clang diagnostic pop
   static const void *ptrTable[] = { "LBrComMobilemindJ2objcHttpTransformer;", "list", "Lcom/google/gson/reflect/TypeToken<Ljava/util/List<TT;>;>;" };
-  static const J2ObjcClassInfo _BrComMobilemindJ2objcHttpTransformer_1 = { "", "br.com.mobilemind.j2objc.http", ptrTable, methods, NULL, 7, 0x8018, 1, 0, 0, -1, 1, 2, -1 };
+  static const J2ObjcClassInfo _BrComMobilemindJ2objcHttpTransformer_1 = { "", "br.com.mobilemind.j2objc.http", ptrTable, methods, NULL, 7, 0x8010, 1, 0, 0, -1, 1, 2, -1 };
   return &_BrComMobilemindJ2objcHttpTransformer_1;
 }
 
@@ -328,7 +405,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   methods[0].selector = @selector(init);
   #pragma clang diagnostic pop
   static const void *ptrTable[] = { "LBrComMobilemindJ2objcHttpTransformer;", "object", "Lcom/google/gson/reflect/TypeToken<TT;>;" };
-  static const J2ObjcClassInfo _BrComMobilemindJ2objcHttpTransformer_2 = { "", "br.com.mobilemind.j2objc.http", ptrTable, methods, NULL, 7, 0x8018, 1, 0, 0, -1, 1, 2, -1 };
+  static const J2ObjcClassInfo _BrComMobilemindJ2objcHttpTransformer_2 = { "", "br.com.mobilemind.j2objc.http", ptrTable, methods, NULL, 7, 0x8010, 1, 0, 0, -1, 1, 2, -1 };
   return &_BrComMobilemindJ2objcHttpTransformer_2;
 }
 

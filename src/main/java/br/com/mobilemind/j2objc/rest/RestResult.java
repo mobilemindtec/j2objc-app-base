@@ -1,6 +1,8 @@
 package br.com.mobilemind.j2objc.rest;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RestResult<T> {
 
@@ -10,7 +12,7 @@ public class RestResult<T> {
     private List<T> results;
     private long currentUnixTime;
     private int totalCount;
-    private List<String> errors;
+    private Map<String, String> errors = new HashMap<>();
 
     public RestResult(){}
 
@@ -49,7 +51,18 @@ public class RestResult<T> {
     }
 
     public String getMessage() {
-        return message;
+
+        String val = message;
+
+        if(this.errors != null && !this.errors.isEmpty()){
+            val += "\n\n";
+
+            for(String key : this.errors.keySet()){
+                val += key + ": " + this.errors.get(key) + "\n";
+            }
+        }
+
+        return val;
     }
 
     public void setMessage(String message) {
@@ -88,11 +101,11 @@ public class RestResult<T> {
         this.totalCount = totalCount;
     }
 
-    public List<String> getErrors() {
+    public Map<String, String> getErrors() {
         return errors;
     }
 
-    public void setErrors(List<String> errors) {
+    public void setErrors(Map<String, String> errors) {
         this.errors = errors;
     }
 }

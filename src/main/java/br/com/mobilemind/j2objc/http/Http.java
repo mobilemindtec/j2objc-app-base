@@ -1,8 +1,7 @@
 package br.com.mobilemind.j2objc.http;
 
 import javax.annotation.Nonnull;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -48,8 +47,8 @@ public class Http {
             Response response = new Response(httpConnection.getResponseCode());
             this.transformer.setResponse(response);
 
-            response.setEntity(httpConnection.getInputStream());
-            response.setError(httpConnection.getErrorStream());
+            response.setEntity(cloneInputStream(httpConnection.getInputStream()));
+            response.setError(cloneInputStream(httpConnection.getErrorStream()));
 
             for(String fieldName : httpConnection.getHeaderFields().keySet()){
                 List values = httpConnection.getHeaderFields().get(fieldName);
@@ -96,8 +95,9 @@ public class Http {
             Response response = new Response(httpConnection.getResponseCode());
             this.transformer.setResponse(response);
 
-            response.setEntity(httpConnection.getInputStream());
-            response.setError(httpConnection.getErrorStream());
+
+            response.setEntity(cloneInputStream(httpConnection.getInputStream()));
+            response.setError(cloneInputStream(httpConnection.getErrorStream()));
 
             for(String fieldName : httpConnection.getHeaderFields().keySet()){
                 List values = httpConnection.getHeaderFields().get(fieldName);
@@ -144,8 +144,8 @@ public class Http {
             Response response = new Response(httpConnection.getResponseCode());
             this.transformer.setResponse(response);
 
-            response.setEntity(httpConnection.getInputStream());
-            response.setError(httpConnection.getErrorStream());
+            response.setEntity(cloneInputStream(httpConnection.getInputStream()));
+            response.setError(cloneInputStream(httpConnection.getErrorStream()));
 
             for(String fieldName : httpConnection.getHeaderFields().keySet()){
                 List values = httpConnection.getHeaderFields().get(fieldName);
@@ -192,8 +192,9 @@ public class Http {
             Response response = new Response(httpConnection.getResponseCode());
             this.transformer.setResponse(response);
 
-            response.setEntity(httpConnection.getInputStream());
-            response.setError(httpConnection.getErrorStream());
+            response.setEntity(cloneInputStream(httpConnection.getInputStream()));
+            response.setError(cloneInputStream(httpConnection.getErrorStream()));
+
 
             for(String fieldName : httpConnection.getHeaderFields().keySet()){
                 List values = httpConnection.getHeaderFields().get(fieldName);
@@ -235,5 +236,27 @@ public class Http {
         return conn;
     }
 
+
+    private InputStream cloneInputStream(InputStream in) throws IOException {
+
+        if(in == null)
+            return null;
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        // Fake code simulating the copy
+        // You can generally do better with nio if you need...
+        // And please, unlike me, do something about the Exceptions :D
+        byte[] buffer = new byte[1024];
+        int len;
+        while ((len = in.read(buffer)) > -1 ) {
+            baos.write(buffer, 0, len);
+        }
+        baos.flush();
+
+        //logger.info("clonned stream = " + new String(baos.toByteArray()));
+
+        return new ByteArrayInputStream(baos.toByteArray());
+    }
 
 }
