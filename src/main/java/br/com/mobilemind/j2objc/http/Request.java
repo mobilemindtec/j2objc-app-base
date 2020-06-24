@@ -1,10 +1,9 @@
 package br.com.mobilemind.j2objc.http;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import j2objc.gson.GsonBuilder;
+import j2objc.gson.JsonArray;
+import j2objc.gson.JsonObject;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.annotation.Nonnull;

@@ -1,10 +1,5 @@
 package br.com.mobilemind.j2objc.http;
 
-import br.com.mobilemind.j2objc.rest.RestResult;
-import br.com.mobilemind.j2objc.shared.SharedFactory;
-import com.google.gson.*;
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,7 +8,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.google.gson.reflect.TypeToken;
+import j2objc.gson.*;
+import j2objc.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
