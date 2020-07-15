@@ -23,9 +23,9 @@ public class Http {
         this.transformer = transformer;
     }
 
-    public Http(){ this(5000, new Transformer());}
+    public Http(){ this(20 * 1000, new Transformer());}
 
-    public Http(Transformer transformer){ this(5000, transformer);}
+    public Http(Transformer transformer){ this(20 * 1000, transformer);}
 
     public Http(int timeout){ this(timeout, new Transformer());}
 
