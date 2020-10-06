@@ -143,6 +143,10 @@ public class Transformer {
     }
 
     public String errorString() throws IOException {
+
+        if(this.response.getError() == null)
+            return "unknow error";
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(
                 this.response.getError()));
 

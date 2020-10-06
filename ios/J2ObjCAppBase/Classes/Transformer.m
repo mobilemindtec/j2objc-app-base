@@ -213,6 +213,7 @@ J2OBJC_IGNORE_DESIGNATED_END
 }
 
 - (NSString *)errorString {
+  if ([((BrComMobilemindJ2objcHttpResponse *) nil_chk(self->response_)) getError] == nil) return @"unknow error";
   JavaIoBufferedReader *reader = new_JavaIoBufferedReader_initWithJavaIoReader_(new_JavaIoInputStreamReader_initWithJavaIoInputStream_([((BrComMobilemindJ2objcHttpResponse *) nil_chk(self->response_)) getError]));
   JavaLangStringBuilder *content = new_JavaLangStringBuilder_init();
   NSString *output = nil;
@@ -305,7 +306,7 @@ J2OBJC_IGNORE_DESIGNATED_END
     { "response_", "LBrComMobilemindJ2objcHttpResponse;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
     { "gson_", "LGsonGson;", .constantValue.asLong = 0, 0x2, -1, -1, -1, -1 },
   };
-  static const void *ptrTable[] = { "setResponse", "LBrComMobilemindJ2objcHttpResponse;", "setGson", "LGsonGson;", "setGsonTimestampFormat", "LNSString;", "setGsonNamingConvention", "LGsonFieldNamingPolicy;", "LJavaIoIOException;", "<T:Ljava/lang/Object;>()Ljava/util/List<TT;>;", "list", "LJavaLangReflectType;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;)Ljava/util/List<TT;>;", "LJavaLangReflectType;LGsonGson;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;Lcom/google/gson/Gson;)Ljava/util/List<TT;>;", "<T:Ljava/lang/Object;>()TT;", "object", "LIOSClass;", "<T:Ljava/lang/Object;>(Ljava/lang/Class<TT;>;)TT;", "LIOSClass;LGsonGson;", "<T:Ljava/lang/Object;>(Ljava/lang/Class<TT;>;Lcom/google/gson/Gson;)TT;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;)TT;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;Lcom/google/gson/Gson;)TT;", "LJavaIoIOException;LOrgJsonJSONException;", "errorObject", &BrComMobilemindJ2objcHttpTransformer_logger, &BrComMobilemindJ2objcHttpTransformer_GSON_TIMESTAMP_FORMAT, &BrComMobilemindJ2objcHttpTransformer_GSON_NAMING_CONVENTION };
+  static const void *ptrTable[] = { "setResponse", "LBrComMobilemindJ2objcHttpResponse;", "setGson", "LGsonGson;", "setGsonTimestampFormat", "LNSString;", "setGsonNamingConvention", "LGsonFieldNamingPolicy;", "LJavaIoIOException;", "<T:Ljava/lang/Object;>()Ljava/util/List<TT;>;", "list", "LJavaLangReflectType;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;)Ljava/util/List<TT;>;", "LJavaLangReflectType;LGsonGson;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;Lj2objc/gson/Gson;)Ljava/util/List<TT;>;", "<T:Ljava/lang/Object;>()TT;", "object", "LIOSClass;", "<T:Ljava/lang/Object;>(Ljava/lang/Class<TT;>;)TT;", "LIOSClass;LGsonGson;", "<T:Ljava/lang/Object;>(Ljava/lang/Class<TT;>;Lj2objc/gson/Gson;)TT;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;)TT;", "<T:Ljava/lang/Object;>(Ljava/lang/reflect/Type;Lj2objc/gson/Gson;)TT;", "LJavaIoIOException;LOrgJsonJSONException;", "errorObject", &BrComMobilemindJ2objcHttpTransformer_logger, &BrComMobilemindJ2objcHttpTransformer_GSON_TIMESTAMP_FORMAT, &BrComMobilemindJ2objcHttpTransformer_GSON_NAMING_CONVENTION };
   static const J2ObjcClassInfo _BrComMobilemindJ2objcHttpTransformer = { "Transformer", "br.com.mobilemind.j2objc.http", ptrTable, methods, fields, 7, 0x1, 24, 5, -1, -1, -1, -1, -1 };
   return &_BrComMobilemindJ2objcHttpTransformer;
 }
@@ -367,7 +368,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "LBrComMobilemindJ2objcHttpTransformer;", "list", "Lcom/google/gson/reflect/TypeToken<Ljava/util/List<TT;>;>;" };
+  static const void *ptrTable[] = { "LBrComMobilemindJ2objcHttpTransformer;", "list", "Lj2objc/gson/reflect/TypeToken<Ljava/util/List<TT;>;>;" };
   static const J2ObjcClassInfo _BrComMobilemindJ2objcHttpTransformer_1 = { "", "br.com.mobilemind.j2objc.http", ptrTable, methods, NULL, 7, 0x8010, 1, 0, 0, -1, 1, 2, -1 };
   return &_BrComMobilemindJ2objcHttpTransformer_1;
 }
@@ -404,7 +405,7 @@ J2OBJC_IGNORE_DESIGNATED_END
   #pragma clang diagnostic ignored "-Wundeclared-selector"
   methods[0].selector = @selector(init);
   #pragma clang diagnostic pop
-  static const void *ptrTable[] = { "LBrComMobilemindJ2objcHttpTransformer;", "object", "Lcom/google/gson/reflect/TypeToken<TT;>;" };
+  static const void *ptrTable[] = { "LBrComMobilemindJ2objcHttpTransformer;", "object", "Lj2objc/gson/reflect/TypeToken<TT;>;" };
   static const J2ObjcClassInfo _BrComMobilemindJ2objcHttpTransformer_2 = { "", "br.com.mobilemind.j2objc.http", ptrTable, methods, NULL, 7, 0x8010, 1, 0, 0, -1, 1, 2, -1 };
   return &_BrComMobilemindJ2objcHttpTransformer_2;
 }

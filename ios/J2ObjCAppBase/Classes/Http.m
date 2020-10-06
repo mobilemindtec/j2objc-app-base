@@ -310,7 +310,7 @@ BrComMobilemindJ2objcHttpHttp *create_BrComMobilemindJ2objcHttpHttp_initWithInt_
 }
 
 void BrComMobilemindJ2objcHttpHttp_init(BrComMobilemindJ2objcHttpHttp *self) {
-  BrComMobilemindJ2objcHttpHttp_initWithInt_withBrComMobilemindJ2objcHttpTransformer_(self, 5000, new_BrComMobilemindJ2objcHttpTransformer_init());
+  BrComMobilemindJ2objcHttpHttp_initWithInt_withBrComMobilemindJ2objcHttpTransformer_(self, 20 * 1000, new_BrComMobilemindJ2objcHttpTransformer_init());
 }
 
 BrComMobilemindJ2objcHttpHttp *new_BrComMobilemindJ2objcHttpHttp_init() {
@@ -322,7 +322,7 @@ BrComMobilemindJ2objcHttpHttp *create_BrComMobilemindJ2objcHttpHttp_init() {
 }
 
 void BrComMobilemindJ2objcHttpHttp_initWithBrComMobilemindJ2objcHttpTransformer_(BrComMobilemindJ2objcHttpHttp *self, BrComMobilemindJ2objcHttpTransformer *transformer) {
-  BrComMobilemindJ2objcHttpHttp_initWithInt_withBrComMobilemindJ2objcHttpTransformer_(self, 5000, transformer);
+  BrComMobilemindJ2objcHttpHttp_initWithInt_withBrComMobilemindJ2objcHttpTransformer_(self, 20 * 1000, transformer);
 }
 
 BrComMobilemindJ2objcHttpHttp *new_BrComMobilemindJ2objcHttpHttp_initWithBrComMobilemindJ2objcHttpTransformer_(BrComMobilemindJ2objcHttpTransformer *transformer) {
