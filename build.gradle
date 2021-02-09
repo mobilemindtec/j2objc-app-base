@@ -14,6 +14,7 @@ dependencies {
 
   compile fileTree(dir: "${J2OBJC_PATH}/lib", include: 'jre_emul.jar')
   compile fileTree(dir: "${J2OBJC_PATH}/lib", include: 'j2objc.jar')
+  compile fileTree(dir: "${J2OBJC_PATH}/lib", include: 'json.jar')
   compile fileTree(dir: "${J2OBJC_PATH}/lib", include: 'j2objc_annotations.jar')
   compile fileTree(dir: "${J2OBJC_PATH}/lib", include: 'guava-25.1-jre.jar')
   compile fileTree(dir: "${J2OBJC_PATH}/lib", include: 'guava-25.1-android.jar')
